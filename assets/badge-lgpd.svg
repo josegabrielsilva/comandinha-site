@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="Em conformidade com a LGPD">
+  <circle cx="60" cy="60" r="56" fill="#FFF9F0" stroke="#2B2625" stroke-width="2"/>
+  <path d="M60 24 L78 32 V52 C78 66 69 78 60 82 C51 78 42 66 42 52 V32 Z" fill="#2B2625"/>
+  <path d="M52 52 L58 58 L70 46" stroke="#FCC745" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="60" y="98" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="11" font-weight="700" fill="#2B2625" letter-spacing="0.06em">LGPD</text>
+</svg>

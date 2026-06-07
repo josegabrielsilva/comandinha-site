@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Comanda — mock</title>
+  <link rel="stylesheet" href="../app.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-bar__icons"><span></span></div>
+    </div>
+
+    <header class="app-header">
+      <div class="app-header__back">?</div>
+      <div class="app-header__title">Mesa 4 · João</div>
+      <button class="app-header__action">Fechar</button>
+    </header>
+
+    <div class="app-body">
+      <div style="margin-bottom:14px">
+        <span class="badge"><span class="badge__dot"></span> Caixa aberto</span>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div>
+            <span class="row__name">2× Pastel de carne</span>
+          </div>
+          <span class="row__price">R$ 16,00</span>
+        </div>
+        <div class="row">
+          <div>
+            <span class="row__name">1× Caldo de cana</span>
+          </div>
+          <span class="row__price">R$ 6,00</span>
+        </div>
+        <div class="row">
+          <div>
+            <span class="row__name">1× Cerveja</span>
+            <span class="row__note">sem gelo</span>
+          </div>
+          <span class="row__price">R$ 8,00</span>
+        </div>
+        <div class="total-bar">
+          <span>Total</span>
+          <span class="total-bar__value">R$ 30,00</span>
+        </div>
+        <svg class="smile" width="48" height="12" viewBox="0 0 48 12" aria-hidden="true">
+          <path d="M4 6 Q24 14 44 6" stroke="#FCC745" stroke-width="3" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+
+      <button class="btn-full">+ Adicionar item</button>
+    </div>
+
+    <nav class="tab-bar">
+      <div class="tab tab--active"><div class="tab__icon"></div>Comandas</div>
+      <div class="tab"><div class="tab__icon"></div>Cardápio</div>
+      <div class="tab"><div class="tab__icon"></div>Mesas</div>
+      <div class="tab"><div class="tab__icon"></div>Caixa</div>
+    </nav>
+  </div>
+</body>
+</html>
