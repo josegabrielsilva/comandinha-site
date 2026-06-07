@@ -7,60 +7,55 @@
 </head>
 <body>
   <div class="app">
-    <div class="status-bar">
-      <span>9:41</span>
-      <div class="status-bar__icons"><span></span></div>
-    </div>
-
-    <header class="app-header">
-      <div style="width:36px"></div>
-      <div class="app-header__title">Caixa</div>
-      <div style="width:36px"></div>
+    <header class="app-nav">
+      <div class="app-nav__unit">
+        <span class="app-nav__dot" aria-hidden="true"></span>
+        <span>Pastelaria da Esquina</span>
+      </div>
+      <div class="app-nav__user" aria-hidden="true">JG</div>
     </header>
 
-    <div class="app-body">
-      <div style="margin-bottom:14px">
-        <span class="badge"><span class="badge__dot"></span> Turno aberto · 08:12</span>
+    <main class="app-main">
+      <h1 class="section-title">Caixa em tempo real</h1>
+
+      <div class="cash-summary">
+        <div class="cash-stat">
+          <div class="cash-stat__label">Vendas hoje</div>
+          <div class="cash-stat__value">R$ 847,00</div>
+        </div>
+        <div class="cash-stat">
+          <div class="cash-stat__label">Comandas</div>
+          <div class="cash-stat__value">23</div>
+        </div>
       </div>
 
-      <div class="stats-row">
-        <div class="stat-card">
-          <div class="stat-card__label">Vendas</div>
-          <div class="stat-card__value">R$ 847,00</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card__label">Comandas</div>
-          <div class="stat-card__value">23</div>
-        </div>
-      </div>
+      <article class="cash-card">
+        <div class="cash-card__label">Sessão aberta</div>
+        <div class="cash-card__title">Caixa principal</div>
+        <div class="cash-card__meta">Aberto 08:12 · 4h 35min</div>
+        <div class="cash-card__value">R$ 312,00 · 3 comandas abertas</div>
+      </article>
 
-      <div class="card">
-        <div class="card__label">Unidade</div>
-        <div class="card__value" style="font-size:18px">Pastelaria da Esquina</div>
-      </div>
+      <article class="cash-card">
+        <div class="cash-card__label">Último fechamento</div>
+        <div class="cash-card__title">Mesa 2 · Ana</div>
+        <div class="cash-card__value">R$ 42,00</div>
+      </article>
+    </main>
 
-      <div class="card" style="margin-top:12px">
-        <div class="card__label">Últimos fechamentos</div>
-        <div class="row">
-          <span class="row__name">Mesa 2 · Ana</span>
-          <span class="row__price">R$ 42,00</span>
-        </div>
-        <div class="row">
-          <span class="row__name">Balcão · #18</span>
-          <span class="row__price">R$ 28,50</span>
-        </div>
-        <div class="row">
-          <span class="row__name">Mesa 7 · Carlos</span>
-          <span class="row__price">R$ 65,00</span>
-        </div>
+    <nav class="bottom-nav" aria-label="Navegação">
+      <div class="bottom-nav__item">
+        <span class="bottom-nav__icon" aria-hidden="true"></span>
+        Início
       </div>
-    </div>
-
-    <nav class="tab-bar">
-      <div class="tab"><div class="tab__icon"></div>Comandas</div>
-      <div class="tab"><div class="tab__icon"></div>Cardápio</div>
-      <div class="tab"><div class="tab__icon"></div>Mesas</div>
-      <div class="tab tab--active"><div class="tab__icon"></div>Caixa</div>
+      <div class="bottom-nav__fab-wrap">
+        <div class="bottom-nav__fab" aria-hidden="true">+</div>
+        <span class="bottom-nav__fab-label">Nova comanda</span>
+      </div>
+      <div class="bottom-nav__item bottom-nav__item--active">
+        <span class="bottom-nav__icon" aria-hidden="true"></span>
+        Menu
+      </div>
     </nav>
   </div>
 </body>

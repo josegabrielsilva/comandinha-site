@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+<!-- Deploy: static site no Render (usecomandinha.com.br) — publicar raiz do repo, sem build. -->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>comandinha — comanda digital no celular</title>
-  <meta name="description" content="Sistema web de comandas. 30 dias grátis, importe o cardápio com uma foto e comece a usar em menos de 30 minutos. Celular, tablet ou notebook." />
+  <meta name="description" content="Comandas digitais para bares e lanchonetes. Sistema web no celular ou notebook, 30 dias grátis." />
   <link rel="icon" type="image/svg+xml" href="assets/comandinha-icon-ci.svg" />
   <link rel="stylesheet" href="css/site.css" />
 </head>
@@ -18,42 +19,35 @@
       </a>
       <ul class="site-nav__links">
         <li><a href="#produto">Produto</a></li>
-        <li><a href="#fluxo">Fluxo</a></li>
+        <li><a href="#fluxo">Como funciona</a></li>
       </ul>
-      <a class="btn btn--primary" href="https://sysmile-web.onrender.com/">Acessar</a>
+      <a class="btn btn--primary site-nav__cta" href="https://sysmile-web.onrender.com/onboarding">Teste grátis</a>
     </div>
   </nav>
 
   <header class="hero">
     <div class="container hero__grid">
       <div class="hero__content">
-        <p class="hero__eyebrow">Comanda digital · 30 dias grátis</p>
+        <p class="hero__eyebrow">Comanda digital</p>
         <h1 class="heading-xl hero__title">Seu turno,<br />organizado.</h1>
         <p class="hero__lead">
-          Sistema web que funciona no celular, tablet ou notebook.
-          Abra o caixa, registre pedidos e feche contas — com a mesma
-          simplicidade do papel.
+          Mesas, comandas e caixa num sistema web que roda no celular
+          ou notebook — sem instalar nada.
         </p>
-        <ul class="hero__highlights" aria-label="Principais benefícios">
-          <li>30 dias grátis para testar</li>
-          <li>importação automática do cardápio</li>
-          <li>até 3 usuários por unidade</li>
-        </ul>
         <div class="hero__actions">
-          <a class="btn btn--accent btn--lg" href="https://sysmile-web.onrender.com/">Começar grátis</a>
+          <a class="btn btn--accent btn--lg" href="https://sysmile-web.onrender.com/onboarding">Teste grátis por 30 dias</a>
           <a class="btn btn--outline btn--lg" href="#produto">Ver o produto</a>
         </div>
-        <p class="hero__note">Configure sua unidade em menos de 30 minutos.</p>
       </div>
 
       <div class="hero__visual">
-        <figure class="phone" aria-label="Tela de comanda aberta">
+        <figure class="phone" aria-label="Lista de comandas abertas">
           <div class="phone__notch" aria-hidden="true"></div>
           <div class="phone__frame">
             <div class="phone__screen">
               <img
-                src="assets/screens/screen-comanda.png"
-                alt="Comanda aberta com itens, total e status do caixa"
+                src="assets/screens/screen-comandas.png"
+                alt="Tela inicial com mesas e comandas abertas"
                 width="390"
                 height="844"
                 loading="eager"
@@ -65,47 +59,26 @@
     </div>
   </header>
 
-  <section class="highlights" aria-label="Destaques">
-    <div class="container highlights__grid">
-      <div class="highlights__item">
-        <strong>30 dias grátis</strong>
-        <span>Teste completo, sem cartão</span>
-      </div>
-      <div class="highlights__item">
-        <strong>Cardápio por foto</strong>
-        <span>Importação automática de produtos</span>
-      </div>
-      <div class="highlights__item">
-        <strong>Sistema web</strong>
-        <span>Celular, tablet ou notebook</span>
-      </div>
-      <div class="highlights__item">
-        <strong>Até 3 usuários</strong>
-        <span>Por unidade cadastrada</span>
-      </div>
-    </div>
-  </section>
-
   <main id="produto">
 
     <section class="product">
       <div class="container product__grid">
         <div class="product__copy">
           <p class="product__index">01</p>
-          <h2 class="heading-lg product__title">Comandas abertas,<br />sempre visíveis.</h2>
+          <h2 class="heading-lg product__title">Itens, total<br />e fechamento.</h2>
           <p class="product__text">
-            Cada mesa ou balcão com sua conta. Veja o que está em andamento,
-            quanto falta fechar e há quanto tempo a comanda está aberta.
+            Cada pedido com quantidade, observação e total na hora.
+            Feche a comanda quando o cliente for embora.
           </p>
         </div>
         <div class="product__visual">
-          <figure class="phone" aria-label="Lista de comandas ativas">
+          <figure class="phone" aria-label="Detalhe da comanda">
             <div class="phone__notch" aria-hidden="true"></div>
             <div class="phone__frame">
               <div class="phone__screen">
                 <img
-                  src="assets/screens/screen-comandas.png"
-                  alt="Lista de comandas ativas com mesas e valores"
+                  src="assets/screens/screen-comanda.png"
+                  alt="Detalhe da comanda com itens e total"
                   width="390"
                   height="844"
                   loading="lazy"
@@ -121,51 +94,20 @@
       <div class="container product__grid">
         <div class="product__copy">
           <p class="product__index">02</p>
-          <h2 class="heading-lg product__title">Tire uma foto.<br />Cardápio pronto.</h2>
+          <h2 class="heading-lg product__title">Caixa do turno<br />acompanhado.</h2>
           <p class="product__text">
-            Fotografe o cardápio da sua unidade e os produtos são importados
-            automaticamente para o sistema — nomes, preços e categorias,
-            sem digitar item por item.
+            Abra a sessão, acompanhe vendas e comandas abertas.
+            Feche o turno quando terminar.
           </p>
         </div>
         <div class="product__visual">
-          <figure class="phone" aria-label="Tela do cardápio">
-            <div class="phone__notch" aria-hidden="true"></div>
-            <div class="phone__frame">
-              <div class="phone__screen">
-                <img
-                  src="assets/screens/screen-cardapio.png"
-                  alt="Cardápio com produtos, categorias e preços"
-                  width="390"
-                  height="844"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <section class="product">
-      <div class="container product__grid">
-        <div class="product__copy">
-          <p class="product__index">03</p>
-          <h2 class="heading-lg product__title">Caixa do turno<br />em tempo real.</h2>
-          <p class="product__text">
-            Abra e feche a sessão, acompanhe vendas e comandas do dia.
-            Cadastre até 3 usuários por unidade para dividir o turno
-            entre quem opera o caixa e quem anota pedidos.
-          </p>
-        </div>
-        <div class="product__visual">
-          <figure class="phone" aria-label="Tela do caixa">
+          <figure class="phone" aria-label="Painel do caixa">
             <div class="phone__notch" aria-hidden="true"></div>
             <div class="phone__frame">
               <div class="phone__screen">
                 <img
                   src="assets/screens/screen-caixa.png"
-                  alt="Painel do caixa com vendas, comandas e fechamentos"
+                  alt="Resumo do caixa com vendas e sessão aberta"
                   width="390"
                   height="844"
                   loading="lazy"
@@ -178,47 +120,69 @@
     </section>
 
     <section class="flow" id="fluxo">
-      <div class="container">
+      <div class="container flow__inner">
         <div class="flow__header">
-          <h2 class="heading-lg">Pronto em menos de 30 minutos.</h2>
-          <p class="body-sm" style="margin-top:0.75rem">
-            Três passos — o mesmo fluxo que você já faz, só que registrado.
-          </p>
+          <h2 class="heading-lg">Como funciona</h2>
+          <p class="flow__lead">Três passos para sair do papel.</p>
         </div>
         <ol class="flow__list">
           <li class="flow__item">
-            <span class="flow__num">01</span>
-            <div>
+            <span class="flow__num" aria-hidden="true">1</span>
+            <div class="flow__body">
               <h3 class="flow__title">Cadastre a unidade</h3>
-              <p class="body-sm">Importe o cardápio com uma foto e convide até 3 usuários.</p>
+              <p class="flow__text">Produtos, mesas e equipe — tudo no sistema.</p>
             </div>
           </li>
           <li class="flow__item">
-            <span class="flow__num">02</span>
-            <div>
-              <h3 class="flow__title">Abra o caixa e registre pedidos</h3>
-              <p class="body-sm">Nova comanda, itens do cardápio, mesa ou balcão — no celular ou notebook.</p>
+            <span class="flow__num" aria-hidden="true">2</span>
+            <div class="flow__body">
+              <h3 class="flow__title">Abra o turno</h3>
+              <p class="flow__text">Registre pedidos pelo celular ou notebook.</p>
             </div>
           </li>
           <li class="flow__item">
-            <span class="flow__num">03</span>
-            <div>
-              <h3 class="flow__title">Feche a conta</h3>
-              <p class="body-sm">Gera comprovante e segue pro próximo.</p>
+            <span class="flow__num" aria-hidden="true">3</span>
+            <div class="flow__body">
+              <h3 class="flow__title">Feche contas e o turno</h3>
+              <p class="flow__text">Comprovante na hora e caixa conferido.</p>
             </div>
           </li>
         </ol>
       </div>
     </section>
 
-    <section class="cta">
-      <div class="container cta__inner">
-        <h2 class="heading-lg cta__title">30 dias grátis para testar.</h2>
-        <p class="cta__text">
-          Sistema web — acesse do celular, tablet ou notebook.
-          Sem instalar nada.
-        </p>
-        <a class="btn btn--accent btn--lg" href="https://sysmile-web.onrender.com/">Começar agora</a>
+    <section class="trial" id="trial">
+      <div class="container trial__inner">
+        <div class="trial__header">
+          <h2 class="heading-lg">O que inclui o teste</h2>
+          <p class="trial__lead">30 dias com o sistema completo, sem cartão.</p>
+        </div>
+        <div class="trial__grid">
+          <div class="trial__card">
+            <h3 class="trial__card-title">O que está incluído</h3>
+            <ul class="trial__list">
+              <li>Comandas, mesas e cardápio ilimitados</li>
+              <li>Caixa do turno com abertura e fechamento</li>
+              <li>Acesso pelo celular ou notebook, sem instalar app</li>
+              <li>Cadastro da unidade e produtos no próprio sistema</li>
+            </ul>
+          </div>
+          <div class="trial__card trial__card--muted">
+            <h3 class="trial__card-title">O que acontece no dia 31</h3>
+            <p class="trial__text">
+              Se você não assinar um plano pago, o acesso às operações
+              (comandas, caixa e cadastros) é pausado. Seus dados ficam
+              guardados — basta escolher um plano para voltar a operar.
+            </p>
+            <p class="trial__text trial__text--small">
+              Sem surpresas: avisamos quantos dias restam enquanto você usa o teste.
+            </p>
+          </div>
+        </div>
+        <div class="trial__actions">
+          <a class="btn btn--accent btn--lg" href="https://sysmile-web.onrender.com/onboarding">Começar teste grátis</a>
+          <a class="btn btn--outline btn--lg" href="https://sysmile-web.onrender.com/">Já tenho conta</a>
+        </div>
       </div>
     </section>
 
@@ -228,7 +192,10 @@
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
         <p>© 2026 comandinha</p>
-        <a href="https://sysmile-web.onrender.com/">sysmile-web.onrender.com</a>
+        <nav class="site-footer__legal" aria-label="Legal">
+          <a href="termos.html">Termos de uso</a>
+          <a href="privacidade.html">Política de privacidade</a>
+        </nav>
       </div>
       <div class="site-footer__trust">
         <img
@@ -238,9 +205,9 @@
           width="48"
           height="48"
         />
-        <p class="site-footer__lgpd-text">Seus dados tratados<br />conforme a LGPD</p>
+        <p class="site-footer__lgpd-text">Dados tratados conforme a LGPD</p>
       </div>
-      <a class="site-footer__login" href="https://sysmile-web.onrender.com/">Entrar</a>
+      <a class="site-footer__login" href="https://sysmile-web.onrender.com/">Já tenho conta</a>
     </div>
   </footer>
 

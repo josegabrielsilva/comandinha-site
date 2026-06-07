@@ -2,64 +2,67 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Comandas — mock</title>
+  <title>Mesas — mock</title>
   <link rel="stylesheet" href="../app.css" />
 </head>
 <body>
   <div class="app">
-    <div class="status-bar">
-      <span>9:41</span>
-      <div class="status-bar__icons"><span></span></div>
-    </div>
-
-    <header class="app-header">
-      <div style="width:36px"></div>
-      <div class="app-header__title">Comandas</div>
-      <button class="app-header__action">+ Nova</button>
+    <header class="app-nav">
+      <div class="app-nav__unit">
+        <span class="app-nav__dot" aria-hidden="true"></span>
+        <span>Pastelaria da Esquina</span>
+      </div>
+      <div class="app-nav__user" aria-hidden="true">JG</div>
     </header>
 
-    <div class="app-body">
-      <div style="margin-bottom:14px">
-        <span class="badge"><span class="badge__dot"></span> Caixa aberto</span>
-      </div>
+    <main class="app-main">
+      <h1 class="section-title">Mesas (4)</h1>
 
-      <div class="comanda-list">
-        <div class="comanda-item">
-          <div>
-            <div class="comanda-item__mesa">Mesa 4 · João</div>
-            <div class="comanda-item__info">3 itens · aberta há 12 min</div>
+      <div class="mesa-grid">
+        <article class="mesa-card mesa-card--active">
+          <div class="mesa-card__head">
+            <span class="mesa-card__code">M4</span>
+            <span class="mesa-card__seats">4 lug.</span>
           </div>
-          <span class="comanda-item__total">R$ 30,00</span>
-        </div>
-        <div class="comanda-item">
-          <div>
-            <div class="comanda-item__mesa">Mesa 2 · Ana</div>
-            <div class="comanda-item__info">5 itens · aberta há 28 min</div>
+          <div class="mesa-card__chip">
+            <div class="mesa-card__customer">João</div>
+            <div class="comanda-card__actions">
+              <div class="comanda-card__action">
+                <span class="action-icon action-icon--eye" aria-hidden="true"></span>
+                Ver itens
+              </div>
+              <div class="comanda-card__action">
+                <span class="action-icon action-icon--plus" aria-hidden="true"></span>
+                Adicionar
+              </div>
+            </div>
           </div>
-          <span class="comanda-item__total">R$ 42,00</span>
-        </div>
-        <div class="comanda-item">
-          <div>
-            <div class="comanda-item__mesa">Balcão · #19</div>
-            <div class="comanda-item__info">2 itens · aberta há 3 min</div>
-          </div>
-          <span class="comanda-item__total">R$ 15,00</span>
-        </div>
-        <div class="comanda-item">
-          <div>
-            <div class="comanda-item__mesa">Mesa 7 · Carlos</div>
-            <div class="comanda-item__info">4 itens · aberta há 45 min</div>
-          </div>
-          <span class="comanda-item__total">R$ 65,00</span>
-        </div>
-      </div>
-    </div>
+          <button class="mesa-card__btn" type="button">+ Abrir comanda</button>
+        </article>
 
-    <nav class="tab-bar">
-      <div class="tab tab--active"><div class="tab__icon"></div>Comandas</div>
-      <div class="tab"><div class="tab__icon"></div>Cardápio</div>
-      <div class="tab"><div class="tab__icon"></div>Mesas</div>
-      <div class="tab"><div class="tab__icon"></div>Caixa</div>
+        <article class="mesa-card mesa-card--idle">
+          <div class="mesa-card__head">
+            <span class="mesa-card__code">M2</span>
+            <span class="mesa-card__seats" style="color:white">2 lug.</span>
+          </div>
+          <button class="mesa-card__btn" type="button">+ Abrir comanda</button>
+        </article>
+      </div>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegação">
+      <div class="bottom-nav__item bottom-nav__item--active">
+        <span class="bottom-nav__icon" aria-hidden="true"></span>
+        Início
+      </div>
+      <div class="bottom-nav__fab-wrap">
+        <div class="bottom-nav__fab" aria-hidden="true">+</div>
+        <span class="bottom-nav__fab-label">Nova comanda</span>
+      </div>
+      <div class="bottom-nav__item">
+        <span class="bottom-nav__icon" aria-hidden="true"></span>
+        Menu
+      </div>
     </nav>
   </div>
 </body>

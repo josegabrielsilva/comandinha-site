@@ -10,7 +10,6 @@ const outDir = path.join(root, 'assets', 'screens');
 const screens = [
   { file: 'home.html', output: 'screen-comandas.png' },
   { file: 'comanda.html', output: 'screen-comanda.png' },
-  { file: 'cardapio.html', output: 'screen-cardapio.png' },
   { file: 'caixa.html', output: 'screen-caixa.png' },
 ];
 

@@ -7,59 +7,67 @@
 </head>
 <body>
   <div class="app">
-    <div class="status-bar">
-      <span>9:41</span>
-      <div class="status-bar__icons"><span></span></div>
-    </div>
-
-    <header class="app-header">
-      <div class="app-header__back">?</div>
-      <div class="app-header__title">Mesa 4 · João</div>
-      <button class="app-header__action">Fechar</button>
+    <header class="app-nav">
+      <div class="app-nav__unit">
+        <span class="app-nav__dot" aria-hidden="true"></span>
+        <span>Pastelaria da Esquina</span>
+      </div>
+      <div class="app-nav__user" aria-hidden="true">JG</div>
     </header>
 
-    <div class="app-body">
-      <div style="margin-bottom:14px">
-        <span class="badge"><span class="badge__dot"></span> Caixa aberto</span>
-      </div>
+    <main class="app-main">
+      <article class="modal-sheet">
+        <header class="modal-sheet__head">
+          <h1 class="modal-sheet__title">M4 · JOÃO</h1>
+          <p class="modal-sheet__meta">Aberta há 12 min</p>
+        </header>
 
-      <div class="card">
-        <div class="row">
-          <div>
-            <span class="row__name">2× Pastel de carne</span>
+        <div class="modal-sheet__body">
+          <div class="order-row">
+            <span class="order-row__qty">2</span>
+            <span class="order-row__name">Pastel de carne</span>
+            <span class="order-row__price">R$ 16,00</span>
           </div>
-          <span class="row__price">R$ 16,00</span>
-        </div>
-        <div class="row">
-          <div>
-            <span class="row__name">1× Caldo de cana</span>
+          <div class="order-row">
+            <span class="order-row__qty">1</span>
+            <span class="order-row__name">Caldo de cana</span>
+            <span class="order-row__price">R$ 6,00</span>
           </div>
-          <span class="row__price">R$ 6,00</span>
-        </div>
-        <div class="row">
-          <div>
-            <span class="row__name">1× Cerveja</span>
-            <span class="row__note">sem gelo</span>
+          <div class="order-row">
+            <span class="order-row__qty">1</span>
+            <span class="order-row__name">
+              Cerveja 600ml
+              <span class="order-row__note">sem gelo</span>
+            </span>
+            <span class="order-row__price">R$ 8,00</span>
           </div>
-          <span class="row__price">R$ 8,00</span>
         </div>
-        <div class="total-bar">
+
+        <div class="modal-sheet__total">
           <span>Total</span>
-          <span class="total-bar__value">R$ 30,00</span>
+          <span>R$ 30,00</span>
         </div>
-        <svg class="smile" width="48" height="12" viewBox="0 0 48 12" aria-hidden="true">
-          <path d="M4 6 Q24 14 44 6" stroke="#FCC745" stroke-width="3" stroke-linecap="round" fill="none"/>
-        </svg>
+
+        <div class="modal-sheet__footer">
+          <button class="modal-sheet__btn modal-sheet__btn--ghost" type="button">Adicionar itens</button>
+          <button class="modal-sheet__btn modal-sheet__btn--primary" type="button">Fechar comanda</button>
+        </div>
+      </article>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegação">
+      <div class="bottom-nav__item bottom-nav__item--active">
+        <span class="bottom-nav__icon" aria-hidden="true"></span>
+        Início
       </div>
-
-      <button class="btn-full">+ Adicionar item</button>
-    </div>
-
-    <nav class="tab-bar">
-      <div class="tab tab--active"><div class="tab__icon"></div>Comandas</div>
-      <div class="tab"><div class="tab__icon"></div>Cardápio</div>
-      <div class="tab"><div class="tab__icon"></div>Mesas</div>
-      <div class="tab"><div class="tab__icon"></div>Caixa</div>
+      <div class="bottom-nav__fab-wrap">
+        <div class="bottom-nav__fab" aria-hidden="true">+</div>
+        <span class="bottom-nav__fab-label">Nova comanda</span>
+      </div>
+      <div class="bottom-nav__item">
+        <span class="bottom-nav__icon" aria-hidden="true"></span>
+        Menu
+      </div>
     </nav>
   </div>
 </body>
