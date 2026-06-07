@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Comandas — mock</title>
+  <link rel="stylesheet" href="../app.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-bar__icons"><span></span></div>
+    </div>
+
+    <header class="app-header">
+      <div style="width:36px"></div>
+      <div class="app-header__title">Comandas</div>
+      <button class="app-header__action">+ Nova</button>
+    </header>
+
+    <div class="app-body">
+      <div style="margin-bottom:14px">
+        <span class="badge"><span class="badge__dot"></span> Caixa aberto</span>
+      </div>
+
+      <div class="comanda-list">
+        <div class="comanda-item">
+          <div>
+            <div class="comanda-item__mesa">Mesa 4 · João</div>
+            <div class="comanda-item__info">3 itens · aberta há 12 min</div>
+          </div>
+          <span class="comanda-item__total">R$ 30,00</span>
+        </div>
+        <div class="comanda-item">
+          <div>
+            <div class="comanda-item__mesa">Mesa 2 · Ana</div>
+            <div class="comanda-item__info">5 itens · aberta há 28 min</div>
+          </div>
+          <span class="comanda-item__total">R$ 42,00</span>
+        </div>
+        <div class="comanda-item">
+          <div>
+            <div class="comanda-item__mesa">Balcão · #19</div>
+            <div class="comanda-item__info">2 itens · aberta há 3 min</div>
+          </div>
+          <span class="comanda-item__total">R$ 15,00</span>
+        </div>
+        <div class="comanda-item">
+          <div>
+            <div class="comanda-item__mesa">Mesa 7 · Carlos</div>
+            <div class="comanda-item__info">4 itens · aberta há 45 min</div>
+          </div>
+          <span class="comanda-item__total">R$ 65,00</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="tab-bar">
+      <div class="tab tab--active"><div class="tab__icon"></div>Comandas</div>
+      <div class="tab"><div class="tab__icon"></div>Cardápio</div>
+      <div class="tab"><div class="tab__icon"></div>Mesas</div>
+      <div class="tab"><div class="tab__icon"></div>Caixa</div>
+    </nav>
+  </div>
+</body>
+</html>

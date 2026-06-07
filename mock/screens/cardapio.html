@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cardápio — mock</title>
+  <link rel="stylesheet" href="../app.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-bar__icons"><span></span></div>
+    </div>
+
+    <header class="app-header">
+      <div class="app-header__back">?</div>
+      <div class="app-header__title">Cardápio</div>
+      <div style="width:36px"></div>
+    </header>
+
+    <div class="app-body">
+      <p style="font-size:13px;color:var(--cmd-text-muted);margin-bottom:14px">Mesa 4 · João</p>
+
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div>
+            <div class="menu-item__name">Pastel de carne</div>
+            <div class="menu-item__cat">Salgados</div>
+          </div>
+          <div style="display:flex;align-items:center">
+            <span class="menu-item__price">R$ 8,00</span>
+            <button class="menu-item__add">+</button>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item__name">Pastel de queijo</div>
+            <div class="menu-item__cat">Salgados</div>
+          </div>
+          <div style="display:flex;align-items:center">
+            <span class="menu-item__price">R$ 7,00</span>
+            <button class="menu-item__add">+</button>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item__name">Caldo de cana</div>
+            <div class="menu-item__cat">Bebidas</div>
+          </div>
+          <div style="display:flex;align-items:center">
+            <span class="menu-item__price">R$ 6,00</span>
+            <button class="menu-item__add">+</button>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item__name">Cerveja 600ml</div>
+            <div class="menu-item__cat">Bebidas</div>
+          </div>
+          <div style="display:flex;align-items:center">
+            <span class="menu-item__price">R$ 8,00</span>
+            <button class="menu-item__add">+</button>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item__name">Refrigerante lata</div>
+            <div class="menu-item__cat">Bebidas</div>
+          </div>
+          <div style="display:flex;align-items:center">
+            <span class="menu-item__price">R$ 5,00</span>
+            <button class="menu-item__add">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="tab-bar">
+      <div class="tab"><div class="tab__icon"></div>Comandas</div>
+      <div class="tab tab--active"><div class="tab__icon"></div>Cardápio</div>
+      <div class="tab"><div class="tab__icon"></div>Mesas</div>
+      <div class="tab"><div class="tab__icon"></div>Caixa</div>
+    </nav>
+  </div>
+</body>
+</html>
