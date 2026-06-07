@@ -263,8 +263,7 @@ a {
   border-radius: var(--cmd-radius-xl);
   padding: 1.25rem;
   color: var(--cmd-text-primary);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25);
-  border: 1px solid var(--cmd-border);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
 }
 
 .hero-card__header {
