@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Caixa — mock</title>
+  <link rel="stylesheet" href="../app.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-bar__icons"><span></span></div>
+    </div>
+
+    <header class="app-header">
+      <div style="width:36px"></div>
+      <div class="app-header__title">Caixa</div>
+      <div style="width:36px"></div>
+    </header>
+
+    <div class="app-body">
+      <div style="margin-bottom:14px">
+        <span class="badge"><span class="badge__dot"></span> Turno aberto · 08:12</span>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-card__label">Vendas</div>
+          <div class="stat-card__value">R$ 847,00</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Comandas</div>
+          <div class="stat-card__value">23</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__label">Unidade</div>
+        <div class="card__value" style="font-size:18px">Pastelaria da Esquina</div>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <div class="card__label">Últimos fechamentos</div>
+        <div class="row">
+          <span class="row__name">Mesa 2 · Ana</span>
+          <span class="row__price">R$ 42,00</span>
+        </div>
+        <div class="row">
+          <span class="row__name">Balcão · #18</span>
+          <span class="row__price">R$ 28,50</span>
+        </div>
+        <div class="row">
+          <span class="row__name">Mesa 7 · Carlos</span>
+          <span class="row__price">R$ 65,00</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="tab-bar">
+      <div class="tab"><div class="tab__icon"></div>Comandas</div>
+      <div class="tab"><div class="tab__icon"></div>Cardápio</div>
+      <div class="tab"><div class="tab__icon"></div>Mesas</div>
+      <div class="tab tab--active"><div class="tab__icon"></div>Caixa</div>
+    </nav>
+  </div>
+</body>
+</html>

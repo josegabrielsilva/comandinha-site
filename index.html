@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>comandinha — comanda, caixa e conta no celular</title>
-  <meta name="description" content="Abrir o caixa, anotar o pedido, fechar a conta — tudo no celular. Comandas digitais simples, no ritmo do turno." />
+  <title>comandinha — comanda digital no celular</title>
+  <meta name="description" content="Comanda, caixa e cardápio no celular. Registre pedidos, acompanhe o turno e feche contas com comprovante." />
   <link rel="icon" type="image/svg+xml" href="assets/comandinha-icon-ci.svg" />
   <link rel="stylesheet" href="css/site.css" />
 </head>
@@ -17,156 +17,175 @@
         <span class="site-nav__logo-text">comandinha</span>
       </a>
       <ul class="site-nav__links">
-        <li><a href="#funcionalidades">o que faz</a></li>
-        <li><a href="#como-funciona">como funciona</a></li>
+        <li><a href="#produto">Produto</a></li>
+        <li><a href="#fluxo">Fluxo</a></li>
       </ul>
-      <a class="btn btn--primary btn--sm" href="https://app.usecomandinha.com.br">usar agora</a>
+      <a class="btn btn--primary" href="https://app.usecomandinha.com.br">Acessar</a>
     </div>
   </nav>
 
   <header class="hero">
     <div class="container hero__grid">
       <div class="hero__content">
-        <h1 class="cmd-display cmd-display--hero">sua comanda, do seu jeito</h1>
-        <p class="hero__text">
-          Abrir o caixa, anotar o pedido, fechar a conta — no ritmo do turno,
-          direto no celular.
+        <p class="hero__eyebrow">Comanda digital</p>
+        <h1 class="heading-xl hero__title">Seu turno,<br />organizado.</h1>
+        <p class="hero__lead">
+          Abra o caixa, registre pedidos e feche contas — direto no celular,
+          com a mesma simplicidade do papel.
         </p>
         <div class="hero__actions">
-          <a class="btn btn--primary" href="https://app.usecomandinha.com.br">começar grátis</a>
-          <a class="btn btn--ghost" href="#funcionalidades">ver o que faz</a>
+          <a class="btn btn--accent btn--lg" href="https://app.usecomandinha.com.br">Começar grátis</a>
+          <a class="btn btn--outline btn--lg" href="#produto">Ver o produto</a>
         </div>
       </div>
 
-      <aside class="hero-card" aria-label="Exemplo de comanda aberta">
-        <div class="hero-card__header">
-          <span class="hero-card__title">mesa 4 · joão</span>
-          <span class="hero-card__status">
-            <span class="hero-card__dot" aria-hidden="true"></span>
-            caixa aberto
-          </span>
-        </div>
-        <div class="hero-card__row">
-          <span class="hero-card__item">2× pastel de carne</span>
-          <span class="hero-card__price">R$ 16,00</span>
-        </div>
-        <div class="hero-card__row">
-          <span class="hero-card__item">1× caldo de cana</span>
-          <span class="hero-card__price">R$ 6,00</span>
-        </div>
-        <div class="hero-card__row">
-          <span class="hero-card__item">1× cerveja <em style="font-size:0.8em;color:var(--cmd-text-muted)">sem gelo</em></span>
-          <span class="hero-card__price">R$ 8,00</span>
-        </div>
-        <div class="hero-card__total">
-          <span>total</span>
-          <span class="hero-card__total-value">R$ 30,00</span>
-        </div>
-        <svg class="hero-card__smile" width="48" height="12" viewBox="0 0 48 12" aria-hidden="true">
-          <path d="M4 6 Q24 14 44 6" stroke-width="3" stroke-linecap="round" fill="none" />
-        </svg>
-      </aside>
+      <div class="hero__visual">
+        <figure class="phone" aria-label="Tela de comanda aberta">
+          <div class="phone__notch" aria-hidden="true"></div>
+          <div class="phone__frame">
+            <div class="phone__screen">
+              <img
+                src="assets/screens/screen-comanda.png"
+                alt="Comanda aberta com itens, total e status do caixa"
+                width="390"
+                height="844"
+                loading="eager"
+              />
+            </div>
+          </div>
+        </figure>
+      </div>
     </div>
   </header>
 
-  <main>
+  <main id="produto">
 
-    <section class="section section--alt" id="funcionalidades">
-      <div class="container">
-        <h2 class="cmd-display cmd-display--section">tudo que o balcão precisa</h2>
-        <p class="section-lead">
-          Comanda, caixa e cardápio — o essencial do turno, sem curva de aprendizado.
-        </p>
-
-        <div class="features">
-          <article class="feature">
-            <h3 class="feature__title">comandas digitais</h3>
-            <p class="feature__text">
-              Abra comanda, adicione itens do cardápio, coloque observação
-              e feche a conta quando o cliente pagar.
-            </p>
-          </article>
-
-          <article class="feature">
-            <h3 class="feature__title">caixa do turno</h3>
-            <p class="feature__text">
-              Abra e feche a sessão de caixa, acompanhe o movimento em tempo real
-              e consulte o histórico quando precisar.
-            </p>
-          </article>
-
-          <article class="feature">
-            <h3 class="feature__title">seu cardápio</h3>
-            <p class="feature__text">
-              Cadastre produtos e preços da sua unidade. Na hora do pedido,
-              é só tocar.
-            </p>
-          </article>
-
-          <article class="feature">
-            <h3 class="feature__title">mesas e salão</h3>
-            <p class="feature__text">
-              Organize mesas e várias comandas ao mesmo tempo.
-              Cada cliente com a conta dele.
-            </p>
-          </article>
-
-          <article class="feature">
-            <h3 class="feature__title">comprovante de fechamento</h3>
-            <p class="feature__text">
-              Ao fechar a conta, gere o comprovante com itens e total.
-            </p>
-          </article>
-
-          <article class="feature">
-            <h3 class="feature__title">no celular ou tablet</h3>
-            <p class="feature__text">
-              Funciona no bolso ou no balcão. Poucos toques, resposta na hora.
-            </p>
-          </article>
+    <section class="product">
+      <div class="container product__grid">
+        <div class="product__copy">
+          <p class="product__index">01</p>
+          <h2 class="heading-lg product__title">Comandas abertas,<br />sempre visíveis.</h2>
+          <p class="product__text">
+            Cada mesa ou balcão com sua conta. Veja o que está em andamento,
+            quanto falta fechar e há quanto tempo a comanda está aberta.
+          </p>
+        </div>
+        <div class="product__visual">
+          <figure class="phone" aria-label="Lista de comandas ativas">
+            <div class="phone__notch" aria-hidden="true"></div>
+            <div class="phone__frame">
+              <div class="phone__screen">
+                <img
+                  src="assets/screens/screen-comandas.png"
+                  alt="Lista de comandas ativas com mesas e valores"
+                  width="390"
+                  height="844"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </figure>
         </div>
       </div>
     </section>
 
-    <section class="section" id="como-funciona">
-      <div class="container">
-        <h2 class="cmd-display cmd-display--section">três passos e já tá rodando</h2>
-        <p class="section-lead">
-          O fluxo é o mesmo que você já faz — só que digital.
-        </p>
+    <section class="product product--reverse">
+      <div class="container product__grid">
+        <div class="product__copy">
+          <p class="product__index">02</p>
+          <h2 class="heading-lg product__title">Cardápio na hora<br />do pedido.</h2>
+          <p class="product__text">
+            Produtos e preços cadastrados da sua unidade. Toque para adicionar,
+            inclua observação se precisar — sem decorar valor nenhum.
+          </p>
+        </div>
+        <div class="product__visual">
+          <figure class="phone" aria-label="Tela do cardápio">
+            <div class="phone__notch" aria-hidden="true"></div>
+            <div class="phone__frame">
+              <div class="phone__screen">
+                <img
+                  src="assets/screens/screen-cardapio.png"
+                  alt="Cardápio com produtos, categorias e preços"
+                  width="390"
+                  height="844"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
 
-        <ol class="steps">
-          <li class="step">
-            <h3 class="step__title">abre o caixa</h3>
-            <p class="step__text">
-              Escolhe a unidade, abre a sessão do turno e pronto.
-            </p>
+    <section class="product">
+      <div class="container product__grid">
+        <div class="product__copy">
+          <p class="product__index">03</p>
+          <h2 class="heading-lg product__title">Caixa do turno<br />em tempo real.</h2>
+          <p class="product__text">
+            Abra e feche a sessão, acompanhe vendas e comandas do dia.
+            Histórico disponível quando precisar conferir o movimento.
+          </p>
+        </div>
+        <div class="product__visual">
+          <figure class="phone" aria-label="Tela do caixa">
+            <div class="phone__notch" aria-hidden="true"></div>
+            <div class="phone__frame">
+              <div class="phone__screen">
+                <img
+                  src="assets/screens/screen-caixa.png"
+                  alt="Painel do caixa com vendas, comandas e fechamentos"
+                  width="390"
+                  height="844"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow" id="fluxo">
+      <div class="container">
+        <div class="flow__header">
+          <h2 class="heading-lg">Três passos. Sem treinamento.</h2>
+          <p class="body-sm" style="margin-top:0.75rem">
+            O fluxo é o que você já faz — só que registrado.
+          </p>
+        </div>
+        <ol class="flow__list">
+          <li class="flow__item">
+            <span class="flow__num">01</span>
+            <div>
+              <h3 class="flow__title">Abre o caixa</h3>
+              <p class="body-sm">Escolhe a unidade e inicia o turno.</p>
+            </div>
           </li>
-          <li class="step">
-            <h3 class="step__title">anota os pedidos</h3>
-            <p class="step__text">
-              Nova comanda, itens do cardápio, observação se precisar.
-              Mesa ou balcão.
-            </p>
+          <li class="flow__item">
+            <span class="flow__num">02</span>
+            <div>
+              <h3 class="flow__title">Registra os pedidos</h3>
+              <p class="body-sm">Nova comanda, itens do cardápio, mesa ou balcão.</p>
+            </div>
           </li>
-          <li class="step">
-            <h3 class="step__title">fecha a conta</h3>
-            <p class="step__text">
-              Cliente pagou? Fecha a comanda, gera o comprovante
-              e segue pro próximo.
-            </p>
+          <li class="flow__item">
+            <span class="flow__num">03</span>
+            <div>
+              <h3 class="flow__title">Fecha a conta</h3>
+              <p class="body-sm">Gera comprovante e segue pro próximo.</p>
+            </div>
           </li>
         </ol>
       </div>
     </section>
 
-    <section class="cta-band">
-      <div class="container">
-        <h2 class="cmd-display cmd-display--section">comece hoje</h2>
-        <p class="cta-band__text">
-          No celular que você já tem.
-        </p>
-        <a class="btn btn--primary" href="https://app.usecomandinha.com.br">começar grátis</a>
+    <section class="cta">
+      <div class="container cta__inner">
+        <h2 class="heading-lg cta__title">Pronto para testar?</h2>
+        <p class="cta__text">Funciona no celular que você já tem.</p>
+        <a class="btn btn--accent btn--lg" href="https://app.usecomandinha.com.br">Começar grátis</a>
       </div>
     </section>
 
@@ -175,7 +194,7 @@
   <footer class="site-footer">
     <div class="container site-footer__inner">
       <p>© 2026 comandinha</p>
-      <a href="https://app.usecomandinha.com.br">entrar</a>
+      <a href="https://app.usecomandinha.com.br">Entrar</a>
     </div>
   </footer>
 
