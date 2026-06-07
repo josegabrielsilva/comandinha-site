@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Comanda aberta — mock</title>
+  <link rel="stylesheet" href="../app.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-nav">
+      <div class="app-nav__unit">
+        <span class="app-nav__dot" aria-hidden="true"></span>
+        <span>Pastelaria da Esquina</span>
+      </div>
+      <div class="app-nav__user" aria-hidden="true">JG</div>
+    </header>
+
+    <main class="app-main">
+      <article class="comanda-card">
+        <p class="comanda-card__name">ANA</p>
+        <div class="comanda-card__actions">
+          <div class="comanda-card__action">
+            <span class="action-icon action-icon--eye" aria-hidden="true"></span>
+            Ver itens
+          </div>
+          <div class="comanda-card__action">
+            <span class="action-icon action-icon--plus" aria-hidden="true"></span>
+            Adicionar itens
+          </div>
+        </div>
+      </article>
+
+      <article class="comanda-card" style="margin-top:10px;background:white">
+        <p class="comanda-card__name" style="opacity:0.55">CARLOS</p>
+        <div class="comanda-card__actions" style="background:rgba(43,38,37,0.08)">
+          <div class="comanda-card__action" style="flex-direction:row;gap:6px">
+            <span class="action-icon action-icon--eye" aria-hidden="true"></span>
+            Ver itens
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegação">
+      <div class="bottom-nav__item bottom-nav__item--active">
+        <span class="bottom-nav__icon" aria-hidden="true"></span>
+        Início
+      </div>
+      <div class="bottom-nav__fab-wrap">
+        <div class="bottom-nav__fab" aria-hidden="true">+</div>
+        <span class="bottom-nav__fab-label">Nova comanda</span>
+      </div>
+      <div class="bottom-nav__item">
+        <span class="bottom-nav__icon" aria-hidden="true"></span>
+        Menu
+      </div>
+    </nav>
+  </div>
+</body>
+</html>

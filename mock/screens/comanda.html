@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Comanda — mock</title>
+  <link rel="stylesheet" href="../app.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-nav">
+      <div class="app-nav__unit">
+        <span class="app-nav__dot" aria-hidden="true"></span>
+        <span>Pastelaria da Esquina</span>
+      </div>
+      <div class="app-nav__user" aria-hidden="true">JG</div>
+    </header>
+
+    <main class="app-main">
+      <article class="modal-sheet">
+        <header class="modal-sheet__head">
+          <h1 class="modal-sheet__title">M4 · JOÃO</h1>
+          <p class="modal-sheet__meta">Aberta há 12 min</p>
+        </header>
+
+        <div class="modal-sheet__body">
+          <div class="order-row">
+            <span class="order-row__qty">2</span>
+            <span class="order-row__name">Pastel de carne</span>
+            <span class="order-row__price">R$ 16,00</span>
+          </div>
+          <div class="order-row">
+            <span class="order-row__qty">1</span>
+            <span class="order-row__name">Caldo de cana</span>
+            <span class="order-row__price">R$ 6,00</span>
+          </div>
+          <div class="order-row">
+            <span class="order-row__qty">1</span>
+            <span class="order-row__name">
+              Cerveja 600ml
+              <span class="order-row__note">sem gelo</span>
+            </span>
+            <span class="order-row__price">R$ 8,00</span>
+          </div>
+        </div>
+
+        <div class="modal-sheet__total">
+          <span>Total</span>
+          <span>R$ 30,00</span>
+        </div>
+
+        <div class="modal-sheet__footer">
+          <button class="modal-sheet__btn modal-sheet__btn--ghost" type="button">Adicionar itens</button>
+          <button class="modal-sheet__btn modal-sheet__btn--primary" type="button">Fechar comanda</button>
+        </div>
+      </article>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegação">
+      <div class="bottom-nav__item bottom-nav__item--active">
+        <span class="bottom-nav__icon" aria-hidden="true"></span>
+        Início
+      </div>
+      <div class="bottom-nav__fab-wrap">
+        <div class="bottom-nav__fab" aria-hidden="true">+</div>
+        <span class="bottom-nav__fab-label">Nova comanda</span>
+      </div>
+      <div class="bottom-nav__item">
+        <span class="bottom-nav__icon" aria-hidden="true"></span>
+        Menu
+      </div>
+    </nav>
+  </div>
+</body>
+</html>

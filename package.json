@@ -1,0 +1,11 @@
+{
+  "name": "comandinha-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "capture-screens": "node scripts/capture-screens.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.52.0"
+  }
+}
