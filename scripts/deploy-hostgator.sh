@@ -15,7 +15,7 @@ fi
 : "${FTP_USER:?Defina FTP_USER (usuário FTP do cPanel)}"
 : "${FTP_PASSWORD:?Defina FTP_PASSWORD}"
 FTP_PORT="${FTP_PORT:-22}"
-FTP_REMOTE_DIR="${FTP_REMOTE_DIR:-public_html}"
+FTP_REMOTE_DIR="${FTP_REMOTE_DIR:-.}"
 
 "$ROOT/scripts/prepare-deploy.sh" "$ROOT/dist"
 

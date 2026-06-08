@@ -8,7 +8,11 @@ LOCAL_DIR="${1:?Informe a pasta local (ex: dist)}"
 : "${FTP_PASSWORD:?Defina FTP_PASSWORD}"
 
 FTP_PORT="${FTP_PORT:-21}"
-FTP_REMOTE_DIR="${FTP_REMOTE_DIR:-public_html}"
+# Conta FTP do cPanel com diretório = public_html já entra na raiz do site (use ".").
+# Conta principal (home) precisa de "public_html".
+FTP_REMOTE_DIR="${FTP_REMOTE_DIR:-.}"
+FTP_REMOTE_DIR="${FTP_REMOTE_DIR#/}"
+[[ -z "$FTP_REMOTE_DIR" ]] && FTP_REMOTE_DIR="."
 
 FTP_HOST="$(printf '%s' "$FTP_HOST" | tr -d '\r\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
 FTP_USER="$(printf '%s' "$FTP_USER" | tr -d '\r\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
@@ -37,44 +41,48 @@ else
   FTP_MODE="SFTP"
 fi
 
-NETRC="${HOME}/.netrc"
-cleanup() { rm -f "$NETRC"; }
+LFTP_BATCH="$(mktemp)"
+cleanup() { rm -f "$LFTP_BATCH"; }
 trap cleanup EXIT
+chmod 600 "$LFTP_BATCH"
 
-umask 077
-{
-  printf 'machine %s\n' "$FTP_HOST"
-  printf 'login %s\n' "$FTP_USER"
-  printf 'password %s\n' "$FTP_PASSWORD"
-} >"$NETRC"
+lftp_quote() { printf '%s' "$1" | sed "s/'/'\\\\''/g"; }
+FTP_USER_ESC="$(lftp_quote "$FTP_USER")"
+FTP_PASSWORD_ESC="$(lftp_quote "$FTP_PASSWORD")"
 
 echo "${FTP_MODE} → ${FTP_USER}@${FTP_HOST}:${FTP_PORT}/${FTP_REMOTE_DIR}"
 
+write_lftp_batch() {
+  local open_url="$1"
+  {
+    printf '%s\n' "set net:timeout 30"
+    printf '%s\n' "set net:max-retries 2"
+    printf '%s\n' "set ssl:verify-certificate no"
+    if [[ "$FTP_SCHEME" == "ftps" ]]; then
+      # Porta 21 = FTPS explícito (AUTH TLS). ftps:// força TLS implícito e quebra o handshake.
+      printf '%s\n' "set ftp:ssl-force true"
+      printf '%s\n' "set ftp:ssl-protect-data true"
+      printf '%s\n' "set ftp:ssl-auth TLS"
+    else
+      printf '%s\n' "set sftp:auto-confirm yes"
+    fi
+    printf '%s\n' "open -u '${FTP_USER_ESC}','${FTP_PASSWORD_ESC}' ${open_url}"
+    printf '%s\n' "lcd ${LOCAL_DIR}"
+    if [[ "$FTP_REMOTE_DIR" != "." ]]; then
+      printf '%s\n' "set cmd:fail-exit false"
+      printf '%s\n' "cd ${FTP_REMOTE_DIR}"
+      printf '%s\n' "set cmd:fail-exit true"
+    fi
+    printf '%s\n' "pwd"
+    printf '%s\n' "mirror -R --delete --verbose --exclude-glob .DS_Store"
+    printf '%s\n' "bye"
+  } >"$LFTP_BATCH"
+}
+
 if [[ "$FTP_SCHEME" == "ftps" ]]; then
-  # Porta 21 = FTPS explícito (AUTH TLS). ftps:// força TLS implícito e quebra o handshake.
-  lftp -e "
-set ftp:ssl-force true
-set ftp:ssl-protect-data true
-set ftp:ssl-auth TLS
-set ssl:verify-certificate no
-set net:timeout 30
-set net:max-retries 2
-open ftp://${FTP_HOST}:${FTP_PORT}
-lcd ${LOCAL_DIR}
-cd ${FTP_REMOTE_DIR}
-mirror -R --delete --verbose --exclude-glob .DS_Store
-bye
-"
+  write_lftp_batch "ftp://${FTP_HOST}:${FTP_PORT}"
 else
-  lftp -e "
-set sftp:auto-confirm yes
-set ssl:verify-certificate no
-set net:timeout 30
-set net:max-retries 2
-open sftp://${FTP_HOST}:${FTP_PORT}
-lcd ${LOCAL_DIR}
-cd ${FTP_REMOTE_DIR}
-mirror -R --delete --verbose --exclude-glob .DS_Store
-bye
-"
+  write_lftp_batch "sftp://${FTP_HOST}:${FTP_PORT}"
 fi
+
+lftp -f "$LFTP_BATCH"
