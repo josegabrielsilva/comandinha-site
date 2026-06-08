@@ -78,7 +78,11 @@ open_url() {
   fi
 }
 
-# Confirma que o destino é public_html (conta principal abre na home do cPanel).
+extract_pwd_lines() {
+  printf '%s\n' "$1" | grep -E '^ftp://' || true
+}
+
+# Descobre se precisamos entrar em public_html ou enviar para public_html/ a partir da home.
 {
   write_lftp_open "$(open_url)"
   printf '%s\n' "pwd"
@@ -89,29 +93,49 @@ open_url() {
   printf '%s\n' "bye"
 } >"$LFTP_BATCH"
 
-VERIFY_LOG="$(lftp -f "$LFTP_BATCH" 2>&1 | tee /dev/stderr)"
-REMOTE_PWD="$(printf '%s\n' "$VERIFY_LOG" | grep -E '^ftp://' | tail -1 || true)"
+PROBE_LOG="$(lftp -f "$LFTP_BATCH" 2>&1 | tee /dev/stderr)"
+PWD_LINES="$(extract_pwd_lines "$PROBE_LOG")"
+PWD_START="$(printf '%s\n' "$PWD_LINES" | sed -n '1p')"
+PWD_END="$(printf '%s\n' "$PWD_LINES" | sed -n '2p')"
 
-if [[ -z "$REMOTE_PWD" ]]; then
+if [[ -z "$PWD_START" || -z "$PWD_END" ]]; then
   echo "ERRO: não foi possível ler o diretório remoto após o login FTP." >&2
   exit 1
 fi
 
-if [[ "$REMOTE_PWD" == *"/home"* && "$REMOTE_PWD" != *"public_html"* ]]; then
-  echo "ERRO: FTP conectou na home do cPanel ($REMOTE_PWD), não em public_html." >&2
-  echo "Use a conta principal do cPanel ou defina FTP_REMOTE_DIR=public_html." >&2
+MIRROR_TARGET="."
+if [[ "$PWD_END" == *"${FTP_REMOTE_DIR}"* ]]; then
+  MIRROR_TARGET="."
+elif [[ "$PWD_START" == *"/home"* && "$PWD_START" == "$PWD_END" ]]; then
+  # Conta principal do cPanel: FTP abre em /home1/usuario e o cd pode falhar no lftp.
+  MIRROR_TARGET="${FTP_REMOTE_DIR}"
+elif [[ "$PWD_START" != *"/home"* ]]; then
+  # Conta FTP já presa em public_html (chroot).
+  MIRROR_TARGET="."
+else
+  echo "ERRO: não foi possível resolver o destino remoto." >&2
+  echo "Início: ${PWD_START}" >&2
+  echo "Fim:    ${PWD_END}" >&2
   exit 1
 fi
 
-echo "Destino remoto confirmado: ${REMOTE_PWD}"
+if [[ "$MIRROR_TARGET" == "${FTP_REMOTE_DIR}" ]]; then
+  echo "Destino remoto: ${PWD_START}/${FTP_REMOTE_DIR}"
+else
+  echo "Destino remoto confirmado: ${PWD_END}"
+fi
 
 {
   write_lftp_open "$(open_url)"
   printf '%s\n' "lcd ${LOCAL_DIR}"
-  printf '%s\n' "set cmd:fail-exit false"
-  printf '%s\n' "cd ${FTP_REMOTE_DIR}"
-  printf '%s\n' "set cmd:fail-exit true"
-  printf '%s\n' "mirror -R --delete --overwrite --verbose --exclude-glob .DS_Store"
+  if [[ "$MIRROR_TARGET" == "${FTP_REMOTE_DIR}" ]]; then
+    printf '%s\n' "mirror -R --delete --overwrite --verbose --exclude-glob .DS_Store . ${FTP_REMOTE_DIR}/"
+  else
+    printf '%s\n' "set cmd:fail-exit false"
+    printf '%s\n' "cd ${FTP_REMOTE_DIR}"
+    printf '%s\n' "set cmd:fail-exit true"
+    printf '%s\n' "mirror -R --delete --overwrite --verbose --exclude-glob .DS_Store . ."
+  fi
   printf '%s\n' "bye"
 } >"$LFTP_BATCH"
 
