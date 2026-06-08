@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "capture-screens": "node scripts/capture-screens.mjs"
+    "capture-screens": "node scripts/capture-screens.mjs",
+    "prepare-deploy": "bash scripts/prepare-deploy.sh",
+    "deploy": "bash scripts/deploy-hostgator.sh"
   },
   "devDependencies": {
     "playwright": "^1.52.0"

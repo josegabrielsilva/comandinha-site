@@ -1,0 +1,42 @@
+DEPLOY AUTOMATIZADO (recomendado)
+=================================
+
+LOCAL (uma vez):
+  1. brew install lftp
+  2. cp .env.deploy.example .env.deploy
+  3. Preencha FTP_HOST, FTP_USER, FTP_PASSWORD (cPanel → FTP Accounts)
+
+PUBLICAR:
+  npm run deploy
+
+GITHUB ACTIONS (recomendado — credenciais no GitHub):
+  Repo → Settings → Secrets and variables → Actions → New repository secret
+
+  Obrigatórios:
+    FTP_HOST      → ex: ftp.usecomandinha.com.br
+    FTP_USER      → usuário FTP do cPanel
+    FTP_PASSWORD  → senha FTP
+
+  Opcionais (purge automático do Cloudflare):
+    CLOUDFLARE_ZONE_ID
+    CLOUDFLARE_API_TOKEN
+
+  Dispara em push em main ou feat/landing-page-inicial (quando HTML/CSS/JS/assets mudam).
+  Ou manualmente: Actions → Deploy HostGator → Run workflow.
+
+---
+
+UPLOAD MANUAL (legado — File Manager / arrastar arquivos)
+  Suba em public_html: index.html, privacidade.html, termos.html, .htaccess, css/, js/, assets/
+
+CLOUDFLARE
+  Se o site parecer antigo após o deploy, purgue o cache:
+  dash.cloudflare.com → Caching → Purge Everything
+  (o script npm run deploy e o GitHub Action fazem isso se CLOUDFLARE_* estiver configurado)
+
+CONFERIR
+  https://usecomandinha.com.br/css/site.css?v=2
+  https://usecomandinha.com.br/assets/screens/screen-comandas.png?v=2
+
+Apague em public_html/assets/ se ainda existirem:
+  comandinha-icon.svg, screen-cardapio.png

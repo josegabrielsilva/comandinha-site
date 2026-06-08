@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="comandinha ícone">
-  <rect width="64" height="64" rx="16" fill="#2B2625"/>
-  <rect x="10" y="8" width="44" height="48" rx="8" fill="#FFF9F0"/>
-  <rect x="16" y="16" width="32" height="4" rx="2" fill="#2B2625" opacity="0.85"/>
-  <rect x="16" y="24" width="24" height="4" rx="2" fill="#2B2625" opacity="0.5"/>
-  <rect x="16" y="32" width="28" height="4" rx="2" fill="#2B2625" opacity="0.5"/>
-  <path d="M18 44 Q32 54 46 44" stroke="#FCC745" stroke-width="4" stroke-linecap="round" fill="none"/>
-</svg>
