@@ -115,9 +115,20 @@ cd_to_path_failed() {
   printf '%s\n' "$log" | grep -Fq "cd: Access failed: 550 Can't change directory to /${path}"
 }
 
+listing_looks_like_cpanel_home() {
+  local listing="$1"
+  remote_listing_has "$FTP_REMOTE_DIR" "$listing" \
+    || remote_listing_has "mail" "$listing" \
+    || remote_listing_has "etc" "$listing" \
+    || remote_listing_has "logs" "$listing" \
+    || remote_listing_has "tmp" "$listing"
+}
+
 build_remote_candidates() {
   REMOTE_CANDIDATES=("$FTP_REMOTE_DIR")
   if [[ -n "$FTP_SITE_DOMAIN" ]]; then
+    REMOTE_CANDIDATES+=("../${FTP_REMOTE_DIR}")
+    REMOTE_CANDIDATES+=("../../${FTP_REMOTE_DIR}")
     REMOTE_CANDIDATES+=("${FTP_SITE_DOMAIN}/${FTP_REMOTE_DIR}")
     REMOTE_CANDIDATES+=("domains/${FTP_SITE_DOMAIN}/${FTP_REMOTE_DIR}")
   fi
@@ -130,24 +141,33 @@ resolve_mirror_target() {
   local probe_log="$4"
   local candidate resolved=""
 
+  # Entrou em public_html com sucesso.
   if [[ "$pwd_end" == *"${FTP_REMOTE_DIR}"* && "$pwd_end" != "$pwd_start" ]]; then
     RESOLVED_MIRROR_TARGET="."
     RESOLVED_MIRROR_LABEL="$pwd_end"
     return 0
   fi
 
-  if remote_listing_has "index.html" "$listing" \
-    && ! remote_listing_has "$FTP_REMOTE_DIR" "$listing"; then
-    RESOLVED_MIRROR_TARGET="."
-    RESOLVED_MIRROR_LABEL="$pwd_start (raiz do site)"
-    return 0
+  # Conta principal: abre na home do cPanel e public_html é subpasta visível.
+  if [[ "$pwd_start" == *"/home"* ]] || listing_looks_like_cpanel_home "$listing"; then
+    if remote_listing_has "$FTP_REMOTE_DIR" "$listing" \
+      || [[ "$pwd_start" == *"/home"* ]]; then
+      RESOLVED_MIRROR_TARGET="$FTP_REMOTE_DIR"
+      RESOLVED_MIRROR_LABEL="${pwd_start%/}/${FTP_REMOTE_DIR}"
+      return 0
+    fi
   fi
 
   build_remote_candidates
   for candidate in "${REMOTE_CANDIDATES[@]}"; do
     if ! cd_to_path_failed "$candidate" "$probe_log"; then
-      RESOLVED_MIRROR_TARGET="$candidate"
-      RESOLVED_MIRROR_LABEL="${pwd_start%/}/${candidate}"
+      if [[ "$candidate" == "$FTP_REMOTE_DIR" ]]; then
+        RESOLVED_MIRROR_TARGET="."
+        RESOLVED_MIRROR_LABEL="$pwd_end"
+      else
+        RESOLVED_MIRROR_TARGET="$candidate"
+        RESOLVED_MIRROR_LABEL="${pwd_start%/}/${candidate}"
+      fi
       return 0
     fi
     if remote_listing_has "${candidate%%/*}" "$listing"; then
@@ -164,6 +184,13 @@ resolve_mirror_target() {
   if remote_listing_has "$FTP_REMOTE_DIR" "$listing"; then
     RESOLVED_MIRROR_TARGET="$FTP_REMOTE_DIR"
     RESOLVED_MIRROR_LABEL="${pwd_start%/}/${FTP_REMOTE_DIR}"
+    return 0
+  fi
+
+  # Chroot em public_html: login em /, sem subpasta public_html, cd falha.
+  if [[ "${FTP_ASSUME_CHROOT_PUBLIC_HTML:-}" == "1" || "${FTP_ASSUME_CHROOT_PUBLIC_HTML:-}" == "true" ]]; then
+    RESOLVED_MIRROR_TARGET="."
+    RESOLVED_MIRROR_LABEL="${pwd_start} (chroot em ${FTP_REMOTE_DIR})"
     return 0
   fi
 
@@ -196,13 +223,21 @@ if [[ -z "$PWD_START" ]]; then
 fi
 
 if ! resolve_mirror_target "$PWD_START" "$PWD_END" "$REMOTE_LISTING" "$PROBE_LOG"; then
-  echo "ERRO: não foi possível resolver ${FTP_REMOTE_DIR} no servidor FTP." >&2
+  echo "ERRO: a conta FTP não alcança ${FTP_REMOTE_DIR}." >&2
   echo "Login: ${PWD_START}" >&2
   if [[ -n "$REMOTE_LISTING" ]]; then
     echo "Conteúdo visível após o login:" >&2
     printf '%s\n' "$REMOTE_LISTING" | sed 's/^/  /' >&2
   fi
-  echo "Confira no cPanel se a conta FTP (${FTP_USER}) aponta para ${FTP_REMOTE_DIR}." >&2
+  echo "" >&2
+  echo "A conta (${FTP_USER}) parece presa em outro diretório (ex.: usecomandinha.com.br/github)." >&2
+  echo "O site público fica em /home/.../public_html — não dentro de github/." >&2
+  echo "" >&2
+  echo "Corrija no cPanel → Contas de FTP → ${FTP_USER}:" >&2
+  echo "  Diretório = public_html   (caminho: /home1/SEU_USUARIO/public_html)" >&2
+  echo "" >&2
+  echo "Alternativa: use o usuário FTP principal do cPanel (abre na home e enxerga public_html/)." >&2
+  echo "Depois de apontar a conta para public_html, defina FTP_ASSUME_CHROOT_PUBLIC_HTML=true no CI." >&2
   exit 1
 fi
 

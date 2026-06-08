@@ -4,7 +4,9 @@
 #   FTP_USER     — conta FTP do cPanel (ex: github@usecomandinha.com.br)
 #   FTP_PASSWORD — senha da conta FTP (sem espaço no fim ao colar)
 #   FTP_PORT     — opcional, padrão 21 (FTPS explícito)
+#   FTP_ASSUME_CHROOT_PUBLIC_HTML — opcional: "true" se a conta FTP já abre DENTRO de public_html
 #   (deploy sempre em public_html; não use secret FTP_REMOTE_DIR)
+#   A conta FTP deve apontar para public_html no cPanel — NÃO para usecomandinha.com.br/github
 #   CLOUDFLARE_ZONE_ID, CLOUDFLARE_API_TOKEN — opcionais (purge após deploy)
 
 name: Deploy HostGator
@@ -47,6 +49,7 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
           FTP_REMOTE_DIR: public_html
+          FTP_ASSUME_CHROOT_PUBLIC_HTML: ${{ secrets.FTP_ASSUME_CHROOT_PUBLIC_HTML }}
         run: |
           set -euo pipefail
           sudo apt-get update -qq
