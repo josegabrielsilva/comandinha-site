@@ -16,6 +16,11 @@ FTP_HOST="$(printf '%s' "$FTP_HOST" | tr -d '\r\n' | sed 's/^[[:space:]]*//;s/[[
 FTP_USER="$(printf '%s' "$FTP_USER" | tr -d '\r\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
 FTP_PASSWORD="$(printf '%s' "$FTP_PASSWORD" | tr -d '\r\n')"
 
+FTP_SITE_DOMAIN=""
+if [[ "$FTP_USER" == *"@"* ]]; then
+  FTP_SITE_DOMAIN="${FTP_USER#*@}"
+fi
+
 if [[ ! -d "$LOCAL_DIR" ]]; then
   echo "Pasta local não encontrada: $LOCAL_DIR" >&2
   exit 1
@@ -82,59 +87,134 @@ extract_pwd_lines() {
   printf '%s\n' "$1" | grep -E '^ftp://' || true
 }
 
-# Descobre se precisamos entrar em public_html ou enviar para public_html/ a partir da home.
+extract_remote_listing() {
+  awk '
+    BEGIN { after_pwd = 0 }
+    /^ftp:\/\// {
+      if (after_pwd) exit
+      after_pwd = 1
+      next
+    }
+    after_pwd && /^cd: / { exit }
+    after_pwd && /^ls: / { exit }
+    after_pwd && /^get: / { exit }
+    after_pwd && /^mirror: / { exit }
+    after_pwd { print }
+  ' <<<"$1"
+}
+
+remote_listing_has() {
+  local name="$1"
+  local listing="$2"
+  printf '%s\n' "$listing" | grep -Fxq "$name"
+}
+
+cd_to_path_failed() {
+  local path="$1"
+  local log="$2"
+  printf '%s\n' "$log" | grep -Fq "cd: Access failed: 550 Can't change directory to /${path}"
+}
+
+build_remote_candidates() {
+  REMOTE_CANDIDATES=("$FTP_REMOTE_DIR")
+  if [[ -n "$FTP_SITE_DOMAIN" ]]; then
+    REMOTE_CANDIDATES+=("${FTP_SITE_DOMAIN}/${FTP_REMOTE_DIR}")
+    REMOTE_CANDIDATES+=("domains/${FTP_SITE_DOMAIN}/${FTP_REMOTE_DIR}")
+  fi
+}
+
+resolve_mirror_target() {
+  local pwd_start="$1"
+  local pwd_end="$2"
+  local listing="$3"
+  local probe_log="$4"
+  local candidate resolved=""
+
+  if [[ "$pwd_end" == *"${FTP_REMOTE_DIR}"* && "$pwd_end" != "$pwd_start" ]]; then
+    RESOLVED_MIRROR_TARGET="."
+    RESOLVED_MIRROR_LABEL="$pwd_end"
+    return 0
+  fi
+
+  if remote_listing_has "index.html" "$listing" \
+    && ! remote_listing_has "$FTP_REMOTE_DIR" "$listing"; then
+    RESOLVED_MIRROR_TARGET="."
+    RESOLVED_MIRROR_LABEL="$pwd_start (raiz do site)"
+    return 0
+  fi
+
+  build_remote_candidates
+  for candidate in "${REMOTE_CANDIDATES[@]}"; do
+    if ! cd_to_path_failed "$candidate" "$probe_log"; then
+      RESOLVED_MIRROR_TARGET="$candidate"
+      RESOLVED_MIRROR_LABEL="${pwd_start%/}/${candidate}"
+      return 0
+    fi
+    if remote_listing_has "${candidate%%/*}" "$listing"; then
+      resolved="$candidate"
+    fi
+  done
+
+  if [[ -n "$resolved" ]]; then
+    RESOLVED_MIRROR_TARGET="$resolved"
+    RESOLVED_MIRROR_LABEL="${pwd_start%/}/${resolved}"
+    return 0
+  fi
+
+  if remote_listing_has "$FTP_REMOTE_DIR" "$listing"; then
+    RESOLVED_MIRROR_TARGET="$FTP_REMOTE_DIR"
+    RESOLVED_MIRROR_LABEL="${pwd_start%/}/${FTP_REMOTE_DIR}"
+    return 0
+  fi
+
+  return 1
+}
+
+# Descobre o destino remoto: lista o diretório e testa caminhos típicos do HostGator.
 {
   write_lftp_open "$(open_url)"
   printf '%s\n' "pwd"
-  printf '%s\n' "set cmd:fail-exit false"
-  printf '%s\n' "cd ${FTP_REMOTE_DIR}"
-  printf '%s\n' "set cmd:fail-exit true"
-  printf '%s\n' "pwd"
+  printf '%s\n' "cls -1"
+  build_remote_candidates
+  for candidate in "${REMOTE_CANDIDATES[@]}"; do
+    printf '%s\n' "set cmd:fail-exit false"
+    printf '%s\n' "cd ${candidate}"
+    printf '%s\n' "pwd"
+  done
   printf '%s\n' "bye"
 } >"$LFTP_BATCH"
 
 PROBE_LOG="$(lftp -f "$LFTP_BATCH" 2>&1 | tee /dev/stderr)"
 PWD_LINES="$(extract_pwd_lines "$PROBE_LOG")"
 PWD_START="$(printf '%s\n' "$PWD_LINES" | sed -n '1p')"
-PWD_END="$(printf '%s\n' "$PWD_LINES" | sed -n '2p')"
+PWD_END="$(printf '%s\n' "$PWD_LINES" | tail -n 1)"
+REMOTE_LISTING="$(extract_remote_listing "$PROBE_LOG")"
 
-if [[ -z "$PWD_START" || -z "$PWD_END" ]]; then
+if [[ -z "$PWD_START" ]]; then
   echo "ERRO: não foi possível ler o diretório remoto após o login FTP." >&2
   exit 1
 fi
 
-MIRROR_TARGET="."
-if [[ "$PWD_END" == *"${FTP_REMOTE_DIR}"* ]]; then
-  MIRROR_TARGET="."
-elif [[ "$PWD_START" == *"/home"* && "$PWD_START" == "$PWD_END" ]]; then
-  # Conta principal do cPanel: FTP abre em /home1/usuario e o cd pode falhar no lftp.
-  MIRROR_TARGET="${FTP_REMOTE_DIR}"
-elif [[ "$PWD_START" != *"/home"* ]]; then
-  # Conta FTP já presa em public_html (chroot).
-  MIRROR_TARGET="."
-else
-  echo "ERRO: não foi possível resolver o destino remoto." >&2
-  echo "Início: ${PWD_START}" >&2
-  echo "Fim:    ${PWD_END}" >&2
+if ! resolve_mirror_target "$PWD_START" "$PWD_END" "$REMOTE_LISTING" "$PROBE_LOG"; then
+  echo "ERRO: não foi possível resolver ${FTP_REMOTE_DIR} no servidor FTP." >&2
+  echo "Login: ${PWD_START}" >&2
+  if [[ -n "$REMOTE_LISTING" ]]; then
+    echo "Conteúdo visível após o login:" >&2
+    printf '%s\n' "$REMOTE_LISTING" | sed 's/^/  /' >&2
+  fi
+  echo "Confira no cPanel se a conta FTP (${FTP_USER}) aponta para ${FTP_REMOTE_DIR}." >&2
   exit 1
 fi
 
-if [[ "$MIRROR_TARGET" == "${FTP_REMOTE_DIR}" ]]; then
-  echo "Destino remoto: ${PWD_START}/${FTP_REMOTE_DIR}"
-else
-  echo "Destino remoto confirmado: ${PWD_END}"
-fi
+echo "Destino remoto: ${RESOLVED_MIRROR_LABEL}"
 
 {
   write_lftp_open "$(open_url)"
   printf '%s\n' "lcd ${LOCAL_DIR}"
-  if [[ "$MIRROR_TARGET" == "${FTP_REMOTE_DIR}" ]]; then
-    printf '%s\n' "mirror -R --delete --overwrite --verbose --exclude-glob .DS_Store . ${FTP_REMOTE_DIR}/"
-  else
-    printf '%s\n' "set cmd:fail-exit false"
-    printf '%s\n' "cd ${FTP_REMOTE_DIR}"
-    printf '%s\n' "set cmd:fail-exit true"
+  if [[ "$RESOLVED_MIRROR_TARGET" == "." ]]; then
     printf '%s\n' "mirror -R --delete --overwrite --verbose --exclude-glob .DS_Store . ."
+  else
+    printf '%s\n' "mirror -R --delete --overwrite --verbose --exclude-glob .DS_Store . ${RESOLVED_MIRROR_TARGET}/"
   fi
   printf '%s\n' "bye"
 } >"$LFTP_BATCH"
