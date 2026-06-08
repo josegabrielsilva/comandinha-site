@@ -1,6 +1,6 @@
 (function () {
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var sections = document.querySelectorAll('.product, .flow');
+  var sections = document.querySelectorAll('.product, .features, .flow');
 
   if (!sections.length) return;
 
