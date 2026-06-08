@@ -1,0 +1,6 @@
+# HTML sempre fresco (evita Cloudflare/navegador servir index antigo)
+<FilesMatch "\.(html)$">
+  <IfModule mod_headers.c>
+    Header set Cache-Control "no-cache, must-revalidate"
+  </IfModule>
+</FilesMatch>
