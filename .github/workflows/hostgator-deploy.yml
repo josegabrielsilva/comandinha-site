@@ -39,16 +39,29 @@ jobs:
         run: bash scripts/prepare-deploy.sh dist
 
       - name: Deploy to public_html (SFTP)
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: 22
-          local_path: './dist/*'
-          remote_path: public_html
-          sftp_only: true
-          sftpArgs: '-o ConnectTimeout=30 -o StrictHostKeyChecking=no'
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_REMOTE_DIR: ${{ secrets.FTP_REMOTE_DIR }}
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lftp
+          FTP_PORT="${FTP_PORT:-22}"
+          FTP_REMOTE_DIR="${FTP_REMOTE_DIR:-public_html}"
+          echo "Enviando dist/ para sftp://${FTP_HOST}:${FTP_PORT}/${FTP_REMOTE_DIR}"
+          lftp <<EOF
+          set sftp:auto-confirm yes
+          set net:timeout 30
+          set net:max-retries 2
+          open -u "${FTP_USER}","${FTP_PASSWORD}" sftp://${FTP_HOST}:${FTP_PORT}
+          lcd dist
+          cd ${FTP_REMOTE_DIR}
+          mirror -R --delete --verbose --exclude-glob .DS_Store
+          bye
+          EOF
 
       - name: Purge Cloudflare cache
         env:
