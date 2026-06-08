@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>comandinha — comanda digital no celular</title>
-  <meta name="description" content="Comandas digitais para bares e lanchonetes. Sistema web no celular ou notebook, 30 dias grátis." />
+  <meta name="description" content="Comanda digital para bares e lanchonetes. Comandas em tempo real, múltiplos usuários e onboarding em 5 minutos. 7 primeiros dias sem cartão." />
   <link rel="icon" type="image/svg+xml" href="assets/comandinha-icon-ci.svg" />
   <link rel="stylesheet" href="css/site.css" />
 </head>
@@ -14,47 +14,32 @@
   <nav class="site-nav" aria-label="Principal">
     <div class="container site-nav__inner">
       <a class="site-nav__logo" href="/" aria-label="comandinha — início">
-        <img class="site-nav__logo-icon" src="assets/comandinha-icon.svg" alt="" width="32" height="32" />
-        <span class="site-nav__logo-text">comandinha</span>
+        <img
+          class="site-nav__logo-img"
+          src="assets/comandinha-logo-navbar.png"
+          alt="comandinha"
+          width="180"
+          height="50"
+        />
       </a>
       <ul class="site-nav__links">
         <li><a href="#produto">Produto</a></li>
-        <li><a href="#fluxo">Como funciona</a></li>
+        <li><a href="#funcionalidades">Funcionalidades</a></li>
+        <li><a href="#comecar-aqui">Comece aqui</a></li>
       </ul>
-      <a class="btn btn--primary site-nav__cta" href="https://sysmile-web.onrender.com/onboarding">Teste grátis</a>
+      <a class="btn btn--primary site-nav__cta" href="https://sysmile-web.onrender.com/onboarding">Começar agora</a>
     </div>
   </nav>
 
   <header class="hero">
-    <div class="container hero__grid">
-      <div class="hero__content">
+    <div class="hero__inner container">
+      <div class="hero__slogan">
         <p class="hero__eyebrow">Comanda digital</p>
         <h1 class="heading-xl hero__title">Seu turno,<br />organizado.</h1>
         <p class="hero__lead">
-          Mesas, comandas e caixa num sistema web que roda no celular
-          ou notebook — sem instalar nada.
+          Comandas e caixa no mesmo fluxo — sincronizados em tempo real
+          para toda a equipe.
         </p>
-        <div class="hero__actions">
-          <a class="btn btn--accent btn--lg" href="https://sysmile-web.onrender.com/onboarding">Teste grátis por 30 dias</a>
-          <a class="btn btn--outline btn--lg" href="#produto">Ver o produto</a>
-        </div>
-      </div>
-
-      <div class="hero__visual">
-        <figure class="phone" aria-label="Lista de comandas abertas">
-          <div class="phone__notch" aria-hidden="true"></div>
-          <div class="phone__frame">
-            <div class="phone__screen">
-              <img
-                src="assets/screens/screen-comandas.png"
-                alt="Tela inicial com mesas e comandas abertas"
-                width="390"
-                height="844"
-                loading="eager"
-              />
-            </div>
-          </div>
-        </figure>
       </div>
     </div>
   </header>
@@ -65,22 +50,22 @@
       <div class="container product__grid">
         <div class="product__copy">
           <p class="product__index">01</p>
-          <h2 class="heading-lg product__title">Itens, total<br />e fechamento.</h2>
+          <h2 class="heading-lg product__title">Comandas abertas.</h2>
           <p class="product__text">
-            Cada pedido com quantidade, observação e total na hora.
-            Feche a comanda quando o cliente for embora.
+            Veja quem está consumindo e adicione itens na hora.
+            Atualização em tempo real para quem está no salão e no caixa.
           </p>
         </div>
         <div class="product__visual">
-          <figure class="phone" aria-label="Detalhe da comanda">
+          <figure class="phone" aria-label="Lista de comandas abertas">
             <div class="phone__notch" aria-hidden="true"></div>
             <div class="phone__frame">
               <div class="phone__screen">
                 <img
-                  src="assets/screens/screen-comanda.png"
-                  alt="Detalhe da comanda com itens e total"
-                  width="390"
-                  height="844"
+                  src="assets/screens/screen-comandas.png"
+                  alt="Lista de comandas abertas com clientes e ações rápidas"
+                  width="524"
+                  height="1024"
                   loading="lazy"
                 />
               </div>
@@ -94,22 +79,21 @@
       <div class="container product__grid">
         <div class="product__copy">
           <p class="product__index">02</p>
-          <h2 class="heading-lg product__title">Caixa do turno<br />acompanhado.</h2>
+          <h2 class="heading-lg product__title">Itens e total.</h2>
           <p class="product__text">
-            Abra a sessão, acompanhe vendas e comandas abertas.
-            Feche o turno quando terminar.
+            Quantidade, observação e total a cada pedido.
           </p>
         </div>
         <div class="product__visual">
-          <figure class="phone" aria-label="Painel do caixa">
+          <figure class="phone" aria-label="Detalhe da comanda">
             <div class="phone__notch" aria-hidden="true"></div>
             <div class="phone__frame">
               <div class="phone__screen">
                 <img
-                  src="assets/screens/screen-caixa.png"
-                  alt="Resumo do caixa com vendas e sessão aberta"
-                  width="390"
-                  height="844"
+                  src="assets/screens/screen-comanda.png"
+                  alt="Comanda aberta com itens, total e fechamento"
+                  width="527"
+                  height="1024"
                   loading="lazy"
                 />
               </div>
@@ -119,68 +103,135 @@
       </div>
     </section>
 
-    <section class="flow" id="fluxo">
+    <section class="product">
+      <div class="container product__grid">
+        <div class="product__copy">
+          <p class="product__index">03</p>
+          <h2 class="heading-lg product__title">Histórico de turnos.</h2>
+          <p class="product__text">
+            Consulte sessões e comandas por período.
+          </p>
+        </div>
+        <div class="product__visual">
+          <figure class="phone" aria-label="Histórico de turnos">
+            <div class="phone__notch" aria-hidden="true"></div>
+            <div class="phone__frame">
+              <div class="phone__screen">
+                <img
+                  src="assets/screens/screen-caixa.png"
+                  alt="Histórico de turnos com filtro por data e resumo de comandas"
+                  width="523"
+                  height="1024"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="funcionalidades">
+      <div class="container features__inner">
+        <div class="features__header">
+          <h2 class="heading-lg">Pensado para a operação.</h2>
+          <p class="features__lead">
+            Sua equipe e suas unidades no mesmo lugar.
+            Sempre em tempo real.
+          </p>
+        </div>
+        <ul class="features__grid">
+          <li class="features__item">
+            <h3 class="features__title">Níveis de acesso</h3>
+            <p class="features__text">Cada perfil vê e faz só o que precisa.</p>
+          </li>
+          <li class="features__item">
+            <h3 class="features__title">Vários usuários</h3>
+            <p class="features__text">Equipe inteira conectada, cada um na sua função.</p>
+          </li>
+          <li class="features__item">
+            <h3 class="features__title">Várias unidades</h3>
+            <p class="features__text">Uma conta para gerenciar todos os seus pontos.</p>
+          </li>
+          <li class="features__item">
+            <h3 class="features__title">Login com Google</h3>
+            <p class="features__text">Entrada segura em um clique, sem fricção.</p>
+          </li>
+          <li class="features__item">
+            <h3 class="features__title">Comandas em tempo real</h3>
+            <p class="features__text">Pedidos e totais atualizados na hora para todos.</p>
+          </li>
+          <li class="features__item">
+            <h3 class="features__title">Alta disponibilidade</h3>
+            <p class="features__text">Resposta rápida, mesmo no pico do movimento.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="flow" id="comecar-aqui">
       <div class="container flow__inner">
         <div class="flow__header">
-          <h2 class="heading-lg">Como funciona</h2>
-          <p class="flow__lead">Três passos para sair do papel.</p>
+          <h2 class="heading-lg">Comece em 5 minutos.</h2>
+          <p class="flow__lead">
+            Onboarding autônomo: do cadastro ao primeiro turno em poucos
+            minutos — sem depender de suporte.
+          </p>
         </div>
         <ol class="flow__list">
           <li class="flow__item">
             <span class="flow__num" aria-hidden="true">1</span>
             <div class="flow__body">
-              <h3 class="flow__title">Cadastre a unidade</h3>
-              <p class="flow__text">Produtos, mesas e equipe — tudo no sistema.</p>
+              <h3 class="flow__title">Crie seu acesso</h3>
+              <p class="flow__text">E-mail e senha ou entrada com Google — rápido e seguro.</p>
             </div>
           </li>
           <li class="flow__item">
             <span class="flow__num" aria-hidden="true">2</span>
             <div class="flow__body">
-              <h3 class="flow__title">Abra o turno</h3>
-              <p class="flow__text">Registre pedidos pelo celular ou notebook.</p>
+              <h3 class="flow__title">Cadastre o estabelecimento</h3>
+              <p class="flow__text">Nome da unidade e dados básicos para começar a operar.</p>
             </div>
           </li>
           <li class="flow__item">
             <span class="flow__num" aria-hidden="true">3</span>
             <div class="flow__body">
-              <h3 class="flow__title">Feche contas e o turno</h3>
-              <p class="flow__text">Comprovante na hora e caixa conferido.</p>
+              <h3 class="flow__title">Monte o cardápio</h3>
+              <p class="flow__text">
+                Cadastre seus primeiros produtos ou importe automaticamente
+                do cardápio que você já usa.
+              </p>
+            </div>
+          </li>
+          <li class="flow__item">
+            <span class="flow__num" aria-hidden="true">4</span>
+            <div class="flow__body">
+              <h3 class="flow__title">Abra o turno</h3>
+              <p class="flow__text">Pronto para operar — lance a primeira comanda no mesmo dia.</p>
             </div>
           </li>
         </ol>
       </div>
     </section>
 
-    <section class="trial" id="trial">
+    <section class="trial" id="comecar">
       <div class="container trial__inner">
         <div class="trial__header">
-          <h2 class="heading-lg">O que inclui o teste</h2>
-          <p class="trial__lead">30 dias com o sistema completo, sem cartão.</p>
+          <h2 class="heading-lg">Comece hoje.</h2>
+          <p class="trial__lead">
+            7 primeiros dias sem cobrança, sem cartão. Do cadastro à primeira
+            comanda, tudo em autoatendimento.
+          </p>
         </div>
-        <div class="trial__grid">
-          <div class="trial__card">
-            <h3 class="trial__card-title">O que está incluído</h3>
-            <ul class="trial__list">
-              <li>Comandas, mesas e cardápio ilimitados</li>
-              <li>Caixa do turno com abertura e fechamento</li>
-              <li>Acesso pelo celular ou notebook, sem instalar app</li>
-              <li>Cadastro da unidade e produtos no próprio sistema</li>
-            </ul>
-          </div>
-          <div class="trial__card trial__card--muted">
-            <h3 class="trial__card-title">O que acontece no dia 31</h3>
-            <p class="trial__text">
-              Se você não assinar um plano pago, o acesso às operações
-              (comandas, caixa e cadastros) é pausado. Seus dados ficam
-              guardados — basta escolher um plano para voltar a operar.
-            </p>
-            <p class="trial__text trial__text--small">
-              Sem surpresas: avisamos quantos dias restam enquanto você usa o teste.
-            </p>
-          </div>
-        </div>
+        <ul class="trial__list">
+          <li>Importação automática de cardápio</li>
+          <li>Níveis de acesso e múltiplos usuários</li>
+          <li>Comandas em tempo real</li>
+          <li>Várias unidades na mesma conta</li>
+          <li>Alta disponibilidade no horário de pico</li>
+        </ul>
         <div class="trial__actions">
-          <a class="btn btn--accent btn--lg" href="https://sysmile-web.onrender.com/onboarding">Começar teste grátis</a>
+          <a class="btn btn--accent btn--lg" href="https://sysmile-web.onrender.com/onboarding">Criar conta</a>
           <a class="btn btn--outline btn--lg" href="https://sysmile-web.onrender.com/">Já tenho conta</a>
         </div>
       </div>
@@ -195,6 +246,16 @@
         <nav class="site-footer__legal" aria-label="Legal">
           <a href="termos.html">Termos de uso</a>
           <a href="privacidade.html">Política de privacidade</a>
+        </nav>
+        <nav class="site-footer__contact" aria-label="Contato">
+          <a href="mailto:contato@usecomandinha.com.br">
+            <svg class="site-footer__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            contato@usecomandinha.com.br
+          </a>
+          <a href="https://instagram.com/usecomandinha" rel="noopener noreferrer">
+            <svg class="site-footer__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            @usecomandinha
+          </a>
         </nav>
       </div>
       <div class="site-footer__trust">
@@ -211,5 +272,6 @@
     </div>
   </footer>
 
+  <script src="js/site.js" defer></script>
 </body>
 </html>
