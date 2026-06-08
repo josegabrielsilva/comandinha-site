@@ -8,11 +8,10 @@ LOCAL_DIR="${1:?Informe a pasta local (ex: dist)}"
 : "${FTP_PASSWORD:?Defina FTP_PASSWORD}"
 
 FTP_PORT="${FTP_PORT:-21}"
-# Conta FTP do cPanel com diretório = public_html já entra na raiz do site (use ".").
-# Conta principal (home) precisa de "public_html".
-FTP_REMOTE_DIR="${FTP_REMOTE_DIR:-.}"
+# Tenta entrar em public_html; se a conta FTP já estiver presa nessa pasta, o cd falha e segue na raiz certa.
+FTP_REMOTE_DIR="${FTP_REMOTE_DIR:-public_html}"
 FTP_REMOTE_DIR="${FTP_REMOTE_DIR#/}"
-[[ -z "$FTP_REMOTE_DIR" ]] && FTP_REMOTE_DIR="."
+[[ -z "$FTP_REMOTE_DIR" ]] && FTP_REMOTE_DIR="public_html"
 
 FTP_HOST="$(printf '%s' "$FTP_HOST" | tr -d '\r\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
 FTP_USER="$(printf '%s' "$FTP_USER" | tr -d '\r\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
@@ -68,13 +67,11 @@ write_lftp_batch() {
     fi
     printf '%s\n' "open -u '${FTP_USER_ESC}','${FTP_PASSWORD_ESC}' ${open_url}"
     printf '%s\n' "lcd ${LOCAL_DIR}"
-    if [[ "$FTP_REMOTE_DIR" != "." ]]; then
-      printf '%s\n' "set cmd:fail-exit false"
-      printf '%s\n' "cd ${FTP_REMOTE_DIR}"
-      printf '%s\n' "set cmd:fail-exit true"
-    fi
+    printf '%s\n' "set cmd:fail-exit false"
+    printf '%s\n' "cd ${FTP_REMOTE_DIR}"
+    printf '%s\n' "set cmd:fail-exit true"
     printf '%s\n' "pwd"
-    printf '%s\n' "mirror -R --delete --verbose --exclude-glob .DS_Store"
+    printf '%s\n' "mirror -R --delete --overwrite --verbose --exclude-glob .DS_Store"
     printf '%s\n' "bye"
   } >"$LFTP_BATCH"
 }

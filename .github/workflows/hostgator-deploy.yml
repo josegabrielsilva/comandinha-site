@@ -4,8 +4,7 @@
 #   FTP_USER     — conta FTP do cPanel (ex: github@usecomandinha.com.br)
 #   FTP_PASSWORD — senha da conta FTP (sem espaço no fim ao colar)
 #   FTP_PORT     — opcional, padrão 21 (FTPS explícito)
-#   FTP_REMOTE_DIR — opcional, padrão "." (conta FTP já apontando para public_html)
-#                  use "public_html" só se a conta FTP abrir na home do cPanel
+#   FTP_REMOTE_DIR — opcional, padrão public_html (ignorado se a conta já abrir dentro dela)
 #   CLOUDFLARE_ZONE_ID, CLOUDFLARE_API_TOKEN — opcionais (purge após deploy)
 
 name: Deploy HostGator
@@ -53,7 +52,7 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq lftp
           FTP_PORT="${FTP_PORT:-21}"
-          FTP_REMOTE_DIR="${FTP_REMOTE_DIR:-.}"
+          FTP_REMOTE_DIR="${FTP_REMOTE_DIR:-public_html}"
           echo "Host: ${FTP_HOST}"
           echo "Porta: ${FTP_PORT}"
           echo "Usuário: ${FTP_USER}"
