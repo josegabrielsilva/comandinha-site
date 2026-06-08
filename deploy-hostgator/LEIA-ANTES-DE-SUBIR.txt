@@ -13,9 +13,10 @@ GITHUB ACTIONS (recomendado — credenciais no GitHub):
   Repo → Settings → Secrets and variables → Actions → New repository secret
 
   Obrigatórios:
-    FTP_HOST      → ex: ftp.usecomandinha.com.br
-    FTP_USER      → usuário FTP do cPanel
-    FTP_PASSWORD  → senha FTP
+    FTP_HOST      → hostname do SERVIDOR no cPanel (ex: gator4321.hostgator.com)
+                    NÃO use usecomandinha.com.br (Cloudflare bloqueia FTP/SFTP)
+    FTP_USER      → usuário FTP/cPanel
+    FTP_PASSWORD  → senha
 
   Opcionais (purge automático do Cloudflare):
     CLOUDFLARE_ZONE_ID

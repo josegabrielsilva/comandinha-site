@@ -1,5 +1,9 @@
 # Secrets (Settings → Secrets and variables → Actions):
-#   FTP_HOST, FTP_USER, FTP_PASSWORD  — obrigatórios
+#   FTP_HOST     — hostname do SERVIDOR no cPanel (ex: gator4321.hostgator.com)
+#                  NÃO use usecomandinha.com.br nem ftp.usecomandinha.com.br (Cloudflare bloqueia FTP/SFTP)
+#   FTP_USER, FTP_PASSWORD — usuário e senha FTP/cPanel
+#   FTP_PORT     — opcional, padrão 22 (SFTP)
+#   FTP_REMOTE_DIR — opcional, padrão public_html
 #   CLOUDFLARE_ZONE_ID, CLOUDFLARE_API_TOKEN — opcionais (purge após deploy)
 
 name: Deploy HostGator
@@ -8,7 +12,6 @@ on:
   push:
     branches:
       - main
-      - feat/landing-page-inicial
     paths:
       - 'index.html'
       - 'privacidade.html'
@@ -35,16 +38,17 @@ jobs:
       - name: Prepare site bundle
         run: bash scripts/prepare-deploy.sh dist
 
-      - name: Deploy to public_html (FTPS)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+      - name: Deploy to public_html (SFTP)
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: dist/
-          server-dir: public_html/
-          protocol: ftps
-          dangerous-clean-slate: false
+          port: 22
+          local_path: './dist/*'
+          remote_path: public_html
+          sftp_only: true
+          sftpArgs: '-o ConnectTimeout=30 -o StrictHostKeyChecking=no'
 
       - name: Purge Cloudflare cache
         env:
