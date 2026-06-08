@@ -12,7 +12,6 @@ on:
   push:
     branches:
       - main
-      - feat/landing-page-inicial
     paths:
       - 'index.html'
       - 'privacidade.html'

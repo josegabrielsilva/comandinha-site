@@ -3,9 +3,7 @@ name: Deploy GitHub Pages
 on:
   push:
     branches:
-      - feat/landing-page-inicial
       - main
-      - cursor/professional-redesign-ba3f
 
 permissions:
   contents: read
