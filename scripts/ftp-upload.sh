@@ -37,7 +37,7 @@ else
   FTP_MODE="SFTP"
 fi
 
-NETRC="${HOME}/.netrc-deploy"
+NETRC="${HOME}/.netrc"
 cleanup() { rm -f "$NETRC"; }
 trap cleanup EXIT
 
@@ -51,14 +51,15 @@ umask 077
 echo "${FTP_MODE} → ${FTP_USER}@${FTP_HOST}:${FTP_PORT}/${FTP_REMOTE_DIR}"
 
 if [[ "$FTP_SCHEME" == "ftps" ]]; then
+  # Porta 21 = FTPS explícito (AUTH TLS). ftps:// força TLS implícito e quebra o handshake.
   lftp -e "
-set net:netrc-file ${NETRC}
 set ftp:ssl-force true
 set ftp:ssl-protect-data true
+set ftp:ssl-auth TLS
 set ssl:verify-certificate no
 set net:timeout 30
 set net:max-retries 2
-open ftps://${FTP_HOST}:${FTP_PORT}
+open ftp://${FTP_HOST}:${FTP_PORT}
 lcd ${LOCAL_DIR}
 cd ${FTP_REMOTE_DIR}
 mirror -R --delete --verbose --exclude-glob .DS_Store
@@ -66,7 +67,6 @@ bye
 "
 else
   lftp -e "
-set net:netrc-file ${NETRC}
 set sftp:auto-confirm yes
 set ssl:verify-certificate no
 set net:timeout 30
