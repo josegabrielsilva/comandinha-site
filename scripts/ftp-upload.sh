@@ -112,26 +112,38 @@ remote_listing_has() {
 cd_to_path_failed() {
   local path="$1"
   local log="$2"
-  printf '%s\n' "$log" | grep -Fq "cd: Access failed: 550 Can't change directory to /${path}"
+  printf '%s\n' "$log" | grep -Fq "Can't change directory to /${path}"
 }
 
 listing_looks_like_cpanel_home() {
   local listing="$1"
-  remote_listing_has "$FTP_REMOTE_DIR" "$listing" \
-    || remote_listing_has "mail" "$listing" \
+  remote_listing_has "mail" "$listing" \
     || remote_listing_has "etc" "$listing" \
     || remote_listing_has "logs" "$listing" \
     || remote_listing_has "tmp" "$listing"
 }
 
+listing_looks_like_public_html_root() {
+  local listing="$1"
+  remote_listing_has "index.html" "$listing" \
+    && { remote_listing_has ".well-known" "$listing" \
+      || remote_listing_has ".ftpquota" "$listing" \
+      || remote_listing_has "mock" "$listing"; }
+}
+
 build_remote_candidates() {
   REMOTE_CANDIDATES=("$FTP_REMOTE_DIR")
   if [[ -n "$FTP_SITE_DOMAIN" ]]; then
-    REMOTE_CANDIDATES+=("../${FTP_REMOTE_DIR}")
-    REMOTE_CANDIDATES+=("../../${FTP_REMOTE_DIR}")
     REMOTE_CANDIDATES+=("${FTP_SITE_DOMAIN}/${FTP_REMOTE_DIR}")
     REMOTE_CANDIDATES+=("domains/${FTP_SITE_DOMAIN}/${FTP_REMOTE_DIR}")
   fi
+}
+
+probe_cd_succeeded() {
+  local candidate="$1"
+  local pwd_before="$2"
+  local pwd_after="$3"
+  [[ -n "$pwd_after" && "$pwd_after" != "$pwd_before" ]]
 }
 
 resolve_mirror_target() {
@@ -140,11 +152,27 @@ resolve_mirror_target() {
   local listing="$3"
   local probe_log="$4"
   local candidate resolved=""
+  local pwd_lines pwd_before pwd_after
+  local idx=0
 
   # Entrou em public_html com sucesso.
   if [[ "$pwd_end" == *"${FTP_REMOTE_DIR}"* && "$pwd_end" != "$pwd_start" ]]; then
     RESOLVED_MIRROR_TARGET="."
     RESOLVED_MIRROR_LABEL="$pwd_end"
+    return 0
+  fi
+
+  # Conta FTP já presa em public_html (chroot): index.html e .well-known na raiz.
+  if listing_looks_like_public_html_root "$listing" \
+    && ! listing_looks_like_cpanel_home "$listing"; then
+    RESOLVED_MIRROR_TARGET="."
+    RESOLVED_MIRROR_LABEL="${pwd_start} (já em ${FTP_REMOTE_DIR})"
+    return 0
+  fi
+
+  if [[ "${FTP_ASSUME_CHROOT_PUBLIC_HTML:-}" == "1" || "${FTP_ASSUME_CHROOT_PUBLIC_HTML:-}" == "true" ]]; then
+    RESOLVED_MIRROR_TARGET="."
+    RESOLVED_MIRROR_LABEL="${pwd_start} (chroot em ${FTP_REMOTE_DIR})"
     return 0
   fi
 
@@ -158,18 +186,24 @@ resolve_mirror_target() {
     fi
   fi
 
+  pwd_lines="$(extract_pwd_lines "$probe_log")"
+  pwd_before="$pwd_start"
+
   build_remote_candidates
   for candidate in "${REMOTE_CANDIDATES[@]}"; do
-    if ! cd_to_path_failed "$candidate" "$probe_log"; then
+    idx=$((idx + 1))
+    pwd_after="$(printf '%s\n' "$pwd_lines" | sed -n "$((idx + 1))p")"
+    if probe_cd_succeeded "$candidate" "$pwd_before" "$pwd_after"; then
       if [[ "$candidate" == "$FTP_REMOTE_DIR" ]]; then
         RESOLVED_MIRROR_TARGET="."
-        RESOLVED_MIRROR_LABEL="$pwd_end"
+        RESOLVED_MIRROR_LABEL="$pwd_after"
       else
         RESOLVED_MIRROR_TARGET="$candidate"
-        RESOLVED_MIRROR_LABEL="${pwd_start%/}/${candidate}"
+        RESOLVED_MIRROR_LABEL="$pwd_after"
       fi
       return 0
     fi
+    pwd_before="${pwd_after:-$pwd_before}"
     if remote_listing_has "${candidate%%/*}" "$listing"; then
       resolved="$candidate"
     fi
@@ -184,13 +218,6 @@ resolve_mirror_target() {
   if remote_listing_has "$FTP_REMOTE_DIR" "$listing"; then
     RESOLVED_MIRROR_TARGET="$FTP_REMOTE_DIR"
     RESOLVED_MIRROR_LABEL="${pwd_start%/}/${FTP_REMOTE_DIR}"
-    return 0
-  fi
-
-  # Chroot em public_html: login em /, sem subpasta public_html, cd falha.
-  if [[ "${FTP_ASSUME_CHROOT_PUBLIC_HTML:-}" == "1" || "${FTP_ASSUME_CHROOT_PUBLIC_HTML:-}" == "true" ]]; then
-    RESOLVED_MIRROR_TARGET="."
-    RESOLVED_MIRROR_LABEL="${pwd_start} (chroot em ${FTP_REMOTE_DIR})"
     return 0
   fi
 
