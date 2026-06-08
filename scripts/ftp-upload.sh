@@ -8,10 +8,9 @@ LOCAL_DIR="${1:?Informe a pasta local (ex: dist)}"
 : "${FTP_PASSWORD:?Defina FTP_PASSWORD}"
 
 FTP_PORT="${FTP_PORT:-21}"
-# Tenta entrar em public_html; se a conta FTP já estiver presa nessa pasta, o cd falha e segue na raiz certa.
 FTP_REMOTE_DIR="${FTP_REMOTE_DIR:-public_html}"
 FTP_REMOTE_DIR="${FTP_REMOTE_DIR#/}"
-[[ -z "$FTP_REMOTE_DIR" ]] && FTP_REMOTE_DIR="public_html"
+[[ -z "$FTP_REMOTE_DIR" || "$FTP_REMOTE_DIR" == "." ]] && FTP_REMOTE_DIR="public_html"
 
 FTP_HOST="$(printf '%s' "$FTP_HOST" | tr -d '\r\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
 FTP_USER="$(printf '%s' "$FTP_USER" | tr -d '\r\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
@@ -51,35 +50,69 @@ FTP_PASSWORD_ESC="$(lftp_quote "$FTP_PASSWORD")"
 
 echo "${FTP_MODE} → ${FTP_USER}@${FTP_HOST}:${FTP_PORT}/${FTP_REMOTE_DIR}"
 
-write_lftp_batch() {
-  local open_url="$1"
-  {
-    printf '%s\n' "set net:timeout 30"
-    printf '%s\n' "set net:max-retries 2"
-    printf '%s\n' "set ssl:verify-certificate no"
-    if [[ "$FTP_SCHEME" == "ftps" ]]; then
-      # Porta 21 = FTPS explícito (AUTH TLS). ftps:// força TLS implícito e quebra o handshake.
-      printf '%s\n' "set ftp:ssl-force true"
-      printf '%s\n' "set ftp:ssl-protect-data true"
-      printf '%s\n' "set ftp:ssl-auth TLS"
-    else
-      printf '%s\n' "set sftp:auto-confirm yes"
-    fi
-    printf '%s\n' "open -u '${FTP_USER_ESC}','${FTP_PASSWORD_ESC}' ${open_url}"
-    printf '%s\n' "lcd ${LOCAL_DIR}"
-    printf '%s\n' "set cmd:fail-exit false"
-    printf '%s\n' "cd ${FTP_REMOTE_DIR}"
-    printf '%s\n' "set cmd:fail-exit true"
-    printf '%s\n' "pwd"
-    printf '%s\n' "mirror -R --delete --overwrite --verbose --exclude-glob .DS_Store"
-    printf '%s\n' "bye"
-  } >"$LFTP_BATCH"
+write_lftp_open_settings() {
+  printf '%s\n' "set net:timeout 30"
+  printf '%s\n' "set net:max-retries 2"
+  printf '%s\n' "set ssl:verify-certificate no"
+  if [[ "$FTP_SCHEME" == "ftps" ]]; then
+    # Porta 21 = FTPS explícito (AUTH TLS). ftps:// força TLS implícito e quebra o handshake.
+    printf '%s\n' "set ftp:ssl-force true"
+    printf '%s\n' "set ftp:ssl-protect-data true"
+    printf '%s\n' "set ftp:ssl-auth TLS"
+  else
+    printf '%s\n' "set sftp:auto-confirm yes"
+  fi
 }
 
-if [[ "$FTP_SCHEME" == "ftps" ]]; then
-  write_lftp_batch "ftp://${FTP_HOST}:${FTP_PORT}"
-else
-  write_lftp_batch "sftp://${FTP_HOST}:${FTP_PORT}"
+write_lftp_open() {
+  local open_url="$1"
+  write_lftp_open_settings
+  printf '%s\n' "open -u '${FTP_USER_ESC}','${FTP_PASSWORD_ESC}' ${open_url}"
+}
+
+open_url() {
+  if [[ "$FTP_SCHEME" == "ftps" ]]; then
+    printf 'ftp://%s:%s' "$FTP_HOST" "$FTP_PORT"
+  else
+    printf 'sftp://%s:%s' "$FTP_HOST" "$FTP_PORT"
+  fi
+}
+
+# Confirma que o destino é public_html (conta principal abre na home do cPanel).
+{
+  write_lftp_open "$(open_url)"
+  printf '%s\n' "pwd"
+  printf '%s\n' "set cmd:fail-exit false"
+  printf '%s\n' "cd ${FTP_REMOTE_DIR}"
+  printf '%s\n' "set cmd:fail-exit true"
+  printf '%s\n' "pwd"
+  printf '%s\n' "bye"
+} >"$LFTP_BATCH"
+
+VERIFY_LOG="$(lftp -f "$LFTP_BATCH" 2>&1 | tee /dev/stderr)"
+REMOTE_PWD="$(printf '%s\n' "$VERIFY_LOG" | grep -E '^ftp://' | tail -1 || true)"
+
+if [[ -z "$REMOTE_PWD" ]]; then
+  echo "ERRO: não foi possível ler o diretório remoto após o login FTP." >&2
+  exit 1
 fi
+
+if [[ "$REMOTE_PWD" == *"/home"* && "$REMOTE_PWD" != *"public_html"* ]]; then
+  echo "ERRO: FTP conectou na home do cPanel ($REMOTE_PWD), não em public_html." >&2
+  echo "Use a conta principal do cPanel ou defina FTP_REMOTE_DIR=public_html." >&2
+  exit 1
+fi
+
+echo "Destino remoto confirmado: ${REMOTE_PWD}"
+
+{
+  write_lftp_open "$(open_url)"
+  printf '%s\n' "lcd ${LOCAL_DIR}"
+  printf '%s\n' "set cmd:fail-exit false"
+  printf '%s\n' "cd ${FTP_REMOTE_DIR}"
+  printf '%s\n' "set cmd:fail-exit true"
+  printf '%s\n' "mirror -R --delete --overwrite --verbose --exclude-glob .DS_Store"
+  printf '%s\n' "bye"
+} >"$LFTP_BATCH"
 
 lftp -f "$LFTP_BATCH"

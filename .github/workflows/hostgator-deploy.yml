@@ -4,7 +4,7 @@
 #   FTP_USER     — conta FTP do cPanel (ex: github@usecomandinha.com.br)
 #   FTP_PASSWORD — senha da conta FTP (sem espaço no fim ao colar)
 #   FTP_PORT     — opcional, padrão 21 (FTPS explícito)
-#   FTP_REMOTE_DIR — opcional, padrão public_html (ignorado se a conta já abrir dentro dela)
+#   (deploy sempre em public_html; não use secret FTP_REMOTE_DIR)
 #   CLOUDFLARE_ZONE_ID, CLOUDFLARE_API_TOKEN — opcionais (purge após deploy)
 
 name: Deploy HostGator
@@ -46,16 +46,16 @@ jobs:
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
-          FTP_REMOTE_DIR: ${{ secrets.FTP_REMOTE_DIR }}
+          FTP_REMOTE_DIR: public_html
         run: |
           set -euo pipefail
           sudo apt-get update -qq
           sudo apt-get install -y -qq lftp
           FTP_PORT="${FTP_PORT:-21}"
-          FTP_REMOTE_DIR="${FTP_REMOTE_DIR:-public_html}"
           echo "Host: ${FTP_HOST}"
           echo "Porta: ${FTP_PORT}"
           echo "Usuário: ${FTP_USER}"
+          echo "Destino: public_html"
           bash scripts/ftp-upload.sh dist
 
       - name: Purge Cloudflare cache
