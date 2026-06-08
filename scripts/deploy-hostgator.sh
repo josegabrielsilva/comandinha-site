@@ -19,22 +19,7 @@ FTP_REMOTE_DIR="${FTP_REMOTE_DIR:-public_html}"
 
 "$ROOT/scripts/prepare-deploy.sh" "$ROOT/dist"
 
-if ! command -v lftp >/dev/null 2>&1; then
-  echo "Instale o lftp: brew install lftp" >&2
-  exit 1
-fi
-
-echo "Enviando via SFTP para $FTP_HOST:$FTP_PORT/$FTP_REMOTE_DIR ..."
-
-lftp -e "
-set sftp:auto-confirm yes
-set ssl:verify-certificate no
-open -u $FTP_USER,$FTP_PASSWORD sftp://$FTP_HOST:$FTP_PORT
-lcd $ROOT/dist
-cd $FTP_REMOTE_DIR
-mirror -R --delete --verbose --exclude-glob .DS_Store
-bye
-"
+bash "$ROOT/scripts/ftp-upload.sh" "$ROOT/dist"
 
 if [[ -n "${CLOUDFLARE_ZONE_ID:-}" && -n "${CLOUDFLARE_API_TOKEN:-}" ]]; then
   echo "Limpando cache do Cloudflare..."

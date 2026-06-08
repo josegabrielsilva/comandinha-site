@@ -1,8 +1,9 @@
 # Secrets (Settings → Secrets and variables → Actions):
-#   FTP_HOST     — hostname do SERVIDOR no cPanel (ex: gator4321.hostgator.com)
-#                  NÃO use usecomandinha.com.br nem ftp.usecomandinha.com.br (Cloudflare bloqueia FTP/SFTP)
-#   FTP_USER, FTP_PASSWORD — usuário e senha FTP/cPanel
-#   FTP_PORT     — opcional, padrão 22 (SFTP)
+#   FTP_HOST     — hostname do SERVIDOR no cPanel (ex: br1234.hostgator.com.br)
+#                  NÃO use ftp.usecomandinha.com.br (Cloudflare bloqueia no CI)
+#   FTP_USER     — conta FTP do cPanel (ex: github@usecomandinha.com.br)
+#   FTP_PASSWORD — senha da conta FTP (sem espaço no fim ao colar)
+#   FTP_PORT     — opcional, padrão 21 (FTPS explícito)
 #   FTP_REMOTE_DIR — opcional, padrão public_html
 #   CLOUDFLARE_ZONE_ID, CLOUDFLARE_API_TOKEN — opcionais (purge após deploy)
 
@@ -21,6 +22,7 @@ on:
       - 'js/**'
       - 'assets/**'
       - 'scripts/prepare-deploy.sh'
+      - 'scripts/ftp-upload.sh'
       - '.github/workflows/hostgator-deploy.yml'
   workflow_dispatch:
 
@@ -38,7 +40,7 @@ jobs:
       - name: Prepare site bundle
         run: bash scripts/prepare-deploy.sh dist
 
-      - name: Deploy to public_html (SFTP)
+      - name: Deploy to public_html (FTPS)
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
@@ -49,19 +51,12 @@ jobs:
           set -euo pipefail
           sudo apt-get update -qq
           sudo apt-get install -y -qq lftp
-          FTP_PORT="${FTP_PORT:-22}"
+          FTP_PORT="${FTP_PORT:-21}"
           FTP_REMOTE_DIR="${FTP_REMOTE_DIR:-public_html}"
-          echo "Enviando dist/ para sftp://${FTP_HOST}:${FTP_PORT}/${FTP_REMOTE_DIR}"
-          lftp <<EOF
-          set sftp:auto-confirm yes
-          set net:timeout 30
-          set net:max-retries 2
-          open -u "${FTP_USER}","${FTP_PASSWORD}" sftp://${FTP_HOST}:${FTP_PORT}
-          lcd dist
-          cd ${FTP_REMOTE_DIR}
-          mirror -R --delete --verbose --exclude-glob .DS_Store
-          bye
-          EOF
+          echo "Host: ${FTP_HOST}"
+          echo "Porta: ${FTP_PORT}"
+          echo "Usuário: ${FTP_USER}"
+          bash scripts/ftp-upload.sh dist
 
       - name: Purge Cloudflare cache
         env:
