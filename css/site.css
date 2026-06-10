@@ -92,8 +92,6 @@ a { color: inherit; text-decoration: none; }
   .site-nav__links { display: flex; }
 }
 
-.site-nav__label--long { display: none; }
-
 .site-nav__actions {
   display: flex;
   flex-direction: row;
@@ -112,9 +110,6 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (min-width: 768px) {
-  .site-nav__label--short { display: none; }
-  .site-nav__label--long { display: inline; }
-
   .site-nav__actions {
     gap: 0.625rem;
     flex-shrink: 0;
