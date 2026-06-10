@@ -39,8 +39,15 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
-  padding: 0.875rem 0;
+  gap: 0.5rem;
+  padding: 0.625rem 0;
+}
+
+@media (min-width: 768px) {
+  .site-nav__inner {
+    gap: 1.5rem;
+    padding: 0.875rem 0;
+  }
 }
 
 .site-nav__logo {
@@ -49,11 +56,17 @@ a { color: inherit; text-decoration: none; }
   flex-shrink: 0;
 }
 
+@media (max-width: 767px) {
+  .site-nav .container {
+    width: min(1080px, 100% - 1.5rem);
+  }
+}
+
 .site-nav__logo-img {
   display: block;
   width: auto;
-  height: 1.75rem;
-  max-width: min(130px, 36vw);
+  height: 1.5rem;
+  max-width: min(108px, 30vw);
 }
 
 @media (min-width: 768px) {
@@ -79,26 +92,34 @@ a { color: inherit; text-decoration: none; }
   .site-nav__links { display: flex; }
 }
 
+.site-nav__label--long { display: none; }
+
 .site-nav__actions {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
-  gap: 0.375rem;
-  flex-shrink: 0;
+  gap: 0.5rem;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
-.site-nav__login,
 .site-nav__cta {
-  padding: 0.5rem 0.625rem;
-  font-size: 0.75rem;
+  flex-shrink: 0;
+  padding: 0.4375rem 0.75rem;
+  font-size: 0.8125rem;
   border-radius: 8px;
 }
 
 @media (min-width: 768px) {
-  .site-nav__actions { gap: 0.625rem; }
+  .site-nav__label--short { display: none; }
+  .site-nav__label--long { display: inline; }
 
-  .site-nav__login,
+  .site-nav__actions {
+    gap: 0.625rem;
+    flex-shrink: 0;
+  }
+
   .site-nav__cta {
     padding: 0.75rem 1.375rem;
     font-size: 0.9375rem;
@@ -283,27 +304,6 @@ a { color: inherit; text-decoration: none; }
 .hero__stat.is-visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-.hero__stats-total {
-  margin-top: 1.125rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(245, 243, 240, 0.14);
-  flex-direction: row;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem;
-  width: 100%;
-}
-
-.hero__stats-total .hero__stat-value {
-  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
-  color: var(--cmd-brand-yellow);
-}
-
-.hero__stats-total .hero__stat-label {
-  text-align: right;
-  flex-shrink: 0;
 }
 
 .hero__stat-value {

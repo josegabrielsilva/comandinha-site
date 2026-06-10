@@ -149,25 +149,6 @@
       return animateCounter(element, Number(data[stat.key]) || 0, stat.duration);
     });
 
-    var labelElement = statsRoot.querySelector('[data-stat="processedValueLabel"]');
-    if (labelElement) {
-      animations.push(
-        new Promise(function (resolve) {
-          if (prefersReducedMotion) {
-            labelElement.textContent = data.processedValueLabel || '—';
-            resolve();
-            return;
-          }
-
-          window.setTimeout(function () {
-            labelElement.textContent = data.processedValueLabel || '—';
-            labelElement.classList.add('is-pop');
-            resolve();
-          }, 720);
-        })
-      );
-    }
-
     Promise.all(animations).then(celebrate);
   }
 
@@ -185,7 +166,6 @@
         ordersCompleted: 12847,
         itemsSold: 89320,
         shiftsCompleted: 384,
-        processedValueLabel: 'R$ 2,4 mi',
       });
     });
 })();
