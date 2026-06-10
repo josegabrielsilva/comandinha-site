@@ -1,9 +1,12 @@
 # Secrets (Settings → Secrets and variables → Actions):
-#   FTP_HOST     — hostname do SERVIDOR no cPanel (ex: gator4321.hostgator.com)
-#                  NÃO use usecomandinha.com.br nem ftp.usecomandinha.com.br (Cloudflare bloqueia FTP/SFTP)
-#   FTP_USER, FTP_PASSWORD — usuário e senha FTP/cPanel
-#   FTP_PORT     — opcional, padrão 22 (SFTP)
-#   FTP_REMOTE_DIR — opcional, padrão public_html
+#   FTP_HOST     — hostname do SERVIDOR no cPanel (ex: br1234.hostgator.com.br)
+#                  NÃO use ftp.usecomandinha.com.br (Cloudflare bloqueia no CI)
+#   FTP_USER     — conta FTP do cPanel (ex: github@usecomandinha.com.br)
+#   FTP_PASSWORD — senha da conta FTP (sem espaço no fim ao colar)
+#   FTP_PORT     — opcional, padrão 21 (FTPS explícito)
+#   FTP_ASSUME_CHROOT_PUBLIC_HTML — opcional: "true" se a conta FTP já abre DENTRO de public_html
+#   (deploy sempre em public_html; não use secret FTP_REMOTE_DIR)
+#   A conta FTP deve apontar para public_html no cPanel — NÃO para usecomandinha.com.br/github
 #   CLOUDFLARE_ZONE_ID, CLOUDFLARE_API_TOKEN — opcionais (purge após deploy)
 
 name: Deploy HostGator
@@ -21,6 +24,7 @@ on:
       - 'js/**'
       - 'assets/**'
       - 'scripts/prepare-deploy.sh'
+      - 'scripts/ftp-upload.sh'
       - '.github/workflows/hostgator-deploy.yml'
   workflow_dispatch:
 
@@ -38,30 +42,24 @@ jobs:
       - name: Prepare site bundle
         run: bash scripts/prepare-deploy.sh dist
 
-      - name: Deploy to public_html (SFTP)
+      - name: Deploy to public_html (FTPS)
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
-          FTP_REMOTE_DIR: ${{ secrets.FTP_REMOTE_DIR }}
+          FTP_REMOTE_DIR: public_html
+          FTP_ASSUME_CHROOT_PUBLIC_HTML: ${{ secrets.FTP_ASSUME_CHROOT_PUBLIC_HTML }}
         run: |
           set -euo pipefail
           sudo apt-get update -qq
           sudo apt-get install -y -qq lftp
-          FTP_PORT="${FTP_PORT:-22}"
-          FTP_REMOTE_DIR="${FTP_REMOTE_DIR:-public_html}"
-          echo "Enviando dist/ para sftp://${FTP_HOST}:${FTP_PORT}/${FTP_REMOTE_DIR}"
-          lftp <<EOF
-          set sftp:auto-confirm yes
-          set net:timeout 30
-          set net:max-retries 2
-          open -u "${FTP_USER}","${FTP_PASSWORD}" sftp://${FTP_HOST}:${FTP_PORT}
-          lcd dist
-          cd ${FTP_REMOTE_DIR}
-          mirror -R --delete --verbose --exclude-glob .DS_Store
-          bye
-          EOF
+          FTP_PORT="${FTP_PORT:-21}"
+          echo "Host: ${FTP_HOST}"
+          echo "Porta: ${FTP_PORT}"
+          echo "Usuário: ${FTP_USER}"
+          echo "Destino: public_html"
+          bash scripts/ftp-upload.sh dist
 
       - name: Purge Cloudflare cache
         env:

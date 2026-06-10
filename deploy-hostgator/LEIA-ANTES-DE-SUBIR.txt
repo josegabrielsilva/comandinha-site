@@ -13,16 +13,24 @@ GITHUB ACTIONS (recomendado — credenciais no GitHub):
   Repo → Settings → Secrets and variables → Actions → New repository secret
 
   Obrigatórios:
-    FTP_HOST      → hostname do SERVIDOR no cPanel (ex: gator4321.hostgator.com)
-                    NÃO use usecomandinha.com.br (Cloudflare bloqueia FTP/SFTP)
-    FTP_USER      → usuário FTP/cPanel
-    FTP_PASSWORD  → senha
+    FTP_HOST      → hostname do SERVIDOR no cPanel (ex: br1234.hostgator.com.br)
+                    NÃO use ftp.usecomandinha.com.br (Cloudflare bloqueia no CI)
+    FTP_USER      → conta FTP (ex: github@usecomandinha.com.br)
+    FTP_PASSWORD  → senha da conta FTP
+    FTP_PORT      → 21 (FTPS explícito; opcional, padrão 21)
+
+  cPanel → Contas de FTP → diretório da conta = public_html
+    Caminho: /home1/SEU_USUARIO/public_html
+    NÃO use usecomandinha.com.br/github (essa pasta não é o site público).
+
+  Opcional (só se a conta já abrir dentro de public_html):
+    FTP_ASSUME_CHROOT_PUBLIC_HTML → true
 
   Opcionais (purge automático do Cloudflare):
     CLOUDFLARE_ZONE_ID
     CLOUDFLARE_API_TOKEN
 
-  Dispara em push em main ou feat/landing-page-inicial (quando HTML/CSS/JS/assets mudam).
+  Dispara em push na main (quando HTML/CSS/JS/assets mudam).
   Ou manualmente: Actions → Deploy HostGator → Run workflow.
 
 ---
