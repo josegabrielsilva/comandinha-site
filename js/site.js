@@ -1,6 +1,65 @@
 (function () {
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  var zoomTriggers = document.querySelectorAll('.media-zoom__trigger');
+
+  if (zoomTriggers.length) {
+    var lightbox = document.createElement('div');
+    lightbox.className = 'media-lightbox';
+    lightbox.hidden = true;
+    lightbox.innerHTML =
+      '<figure class="media-lightbox__dialog">' +
+      '<button type="button" class="media-lightbox__close" aria-label="Fechar">&times;</button>' +
+      '<img class="media-lightbox__img" alt="" />' +
+      '</figure>';
+
+    document.body.appendChild(lightbox);
+
+    var lightboxImage = lightbox.querySelector('.media-lightbox__img');
+    var lightboxClose = lightbox.querySelector('.media-lightbox__close');
+    var lastTrigger = null;
+
+    function closeLightbox() {
+      lightbox.hidden = true;
+      document.body.classList.remove('is-lightbox-open');
+      lightboxImage.removeAttribute('src');
+      if (lastTrigger) {
+        lastTrigger.focus();
+        lastTrigger = null;
+      }
+    }
+
+    function openLightbox(trigger) {
+      var figure = trigger.closest('.media-zoom');
+      var image = figure && figure.querySelector('img');
+      if (!image) return;
+
+      lastTrigger = trigger;
+      lightboxImage.src = image.currentSrc || image.src;
+      lightboxImage.alt = image.alt;
+      lightbox.hidden = false;
+      document.body.classList.add('is-lightbox-open');
+      lightboxClose.focus();
+    }
+
+    zoomTriggers.forEach(function (trigger) {
+      trigger.addEventListener('click', function () {
+        openLightbox(trigger);
+      });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', function (event) {
+      if (event.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (lightbox.hidden) return;
+      if (event.key === 'Escape') closeLightbox();
+    });
+  }
+
   var hero = document.querySelector('.hero');
   if (hero) {
     if (prefersReducedMotion) {
