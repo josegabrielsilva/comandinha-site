@@ -7,7 +7,7 @@
   <title>comandinha — comanda digital no celular</title>
   <meta name="description" content="Comanda digital para bares e lanchonetes. Comandas em tempo real, múltiplos usuários e onboarding em 5 minutos. 7 primeiros dias sem cartão." />
   <link rel="icon" type="image/svg+xml" href="assets/comandinha-icon-ci.svg?v=2" />
-  <link rel="stylesheet" href="css/site.css?v=13" />
+  <link rel="stylesheet" href="css/site.css?v=21" />
 </head>
 <body>
 
@@ -208,61 +208,55 @@
 
     <section class="flow" id="comecar-aqui">
       <div class="container flow__inner">
-        <div class="flow__intro">
+        <figure class="flow__demo" aria-label="Demonstração do onboarding">
+          <img
+            class="flow__demo-gif"
+            src="assets/screens/onboarding-demo.gif?v=3"
+            alt="Demonstração do cadastro e configuração inicial no comandinha"
+            width="720"
+            height="374"
+            loading="lazy"
+          />
+        </figure>
+        <div class="flow__side">
           <div class="flow__header">
             <p class="flow__badge">7 dias grátis · sem cartão</p>
             <h2 class="heading-lg">Comece em 5 minutos.</h2>
-            <p class="flow__lead">
-              Cadastre-se, configure sua operação e abra a primeira comanda
-              no mesmo dia — teste completo por uma semana, sem pagar nada.
-            </p>
-            <div class="flow__actions">
-              <a class="btn btn--accent btn--lg" href="https://sysmile-web.onrender.com/onboarding">Começar teste grátis</a>
-            </div>
           </div>
-          <figure class="flow__demo" aria-label="Demonstração do onboarding">
-            <img
-              src="assets/screens/onboarding-demo.gif?v=3"
-              alt="Demonstração do cadastro e configuração inicial no comandinha"
-              width="720"
-              height="374"
-              loading="lazy"
-            />
-          </figure>
+          <ol class="flow__list">
+            <li class="flow__item">
+              <span class="flow__num" aria-hidden="true">1</span>
+              <div class="flow__body">
+                <h3 class="flow__title">Crie seu acesso</h3>
+                <p class="flow__text">E-mail e senha ou entrada com Google — rápido e seguro.</p>
+              </div>
+            </li>
+            <li class="flow__item">
+              <span class="flow__num" aria-hidden="true">2</span>
+              <div class="flow__body">
+                <h3 class="flow__title">Cadastre o estabelecimento</h3>
+                <p class="flow__text">Nome da unidade e dados básicos para começar a operar.</p>
+              </div>
+            </li>
+            <li class="flow__item">
+              <span class="flow__num" aria-hidden="true">3</span>
+              <div class="flow__body">
+                <h3 class="flow__title">Monte o cardápio</h3>
+                <p class="flow__text">Adicione produtos ou importe do cardápio que você já usa.</p>
+              </div>
+            </li>
+            <li class="flow__item">
+              <span class="flow__num" aria-hidden="true">4</span>
+              <div class="flow__body">
+                <h3 class="flow__title">Abra o turno</h3>
+                <p class="flow__text">Pronto para operar — lance a primeira comanda no mesmo dia.</p>
+              </div>
+            </li>
+          </ol>
+          <div class="flow__actions">
+            <a class="btn btn--accent btn--lg" href="https://sysmile-web.onrender.com/onboarding">Começar teste grátis</a>
+          </div>
         </div>
-        <ol class="flow__list">
-          <li class="flow__item">
-            <span class="flow__num" aria-hidden="true">1</span>
-            <div class="flow__body">
-              <h3 class="flow__title">Crie seu acesso</h3>
-              <p class="flow__text">E-mail e senha ou entrada com Google — rápido e seguro.</p>
-            </div>
-          </li>
-          <li class="flow__item">
-            <span class="flow__num" aria-hidden="true">2</span>
-            <div class="flow__body">
-              <h3 class="flow__title">Cadastre o estabelecimento</h3>
-              <p class="flow__text">Nome da unidade e dados básicos para começar a operar.</p>
-            </div>
-          </li>
-          <li class="flow__item">
-            <span class="flow__num" aria-hidden="true">3</span>
-            <div class="flow__body">
-              <h3 class="flow__title">Monte o cardápio</h3>
-              <p class="flow__text">
-                Cadastre seus primeiros produtos ou importe automaticamente
-                do cardápio que você já usa.
-              </p>
-            </div>
-          </li>
-          <li class="flow__item">
-            <span class="flow__num" aria-hidden="true">4</span>
-            <div class="flow__body">
-              <h3 class="flow__title">Abra o turno</h3>
-              <p class="flow__text">Pronto para operar — lance a primeira comanda no mesmo dia.</p>
-            </div>
-          </li>
-        </ol>
       </div>
     </section>
 
