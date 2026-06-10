@@ -708,8 +708,29 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
+.flow__intro {
+  display: grid;
+  gap: 1.5rem;
+}
+
 .flow__header {
   max-width: 22rem;
+}
+
+.flow__demo {
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--cmd-border);
+  box-shadow:
+    0 2px 4px rgba(43, 38, 37, 0.04),
+    0 16px 40px rgba(43, 38, 37, 0.1);
+}
+
+.flow__demo img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .flow__lead {
@@ -773,14 +794,14 @@ a { color: inherit; text-decoration: none; }
 
 /* ── Flow scroll reveal ── */
 
-.flow__header,
+.flow__intro,
 .flow__list {
   will-change: transform, opacity;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   @media (max-width: 959px) {
-    .flow:not(.is-visible) .flow__header {
+    .flow:not(.is-visible) .flow__intro {
       opacity: 0;
       transform: translate3d(0, -2.5rem, 0) scale(0.97);
     }
@@ -792,7 +813,7 @@ a { color: inherit; text-decoration: none; }
   }
 
   @media (min-width: 960px) {
-    .flow:not(.is-visible) .flow__header {
+    .flow:not(.is-visible) .flow__intro {
       opacity: 0;
       transform: translate3d(-12vw, 0, 0) scale(0.96);
     }
@@ -803,7 +824,7 @@ a { color: inherit; text-decoration: none; }
     }
   }
 
-  .flow.is-visible .flow__header,
+  .flow.is-visible .flow__intro,
   .flow.is-visible .flow__list {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
@@ -818,7 +839,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .flow.is-visible .flow__header,
+  .flow.is-visible .flow__intro,
   .flow.is-visible .flow__list {
     opacity: 1;
     transform: none;
