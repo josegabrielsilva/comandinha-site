@@ -1,0 +1,61 @@
+/**
+ * Comandinha — Design Tokens
+ * Marca para MEI: comandas digitais simples e acolhedoras
+ * Domínio: usecomandinha.com.br
+ */
+
+:root {
+  /* ── Cores primárias ── */
+  --cmd-brand-dark: #2B2625;
+  --cmd-brand-dark-hover: #1F1B1A;
+  --cmd-brand-yellow: #FCC745;
+  --cmd-brand-yellow-hover: #E5B63E;
+  --cmd-brand-yellow-muted: #C9A23A;
+
+  /* ── Cores de apoio (calor MEI) ── */
+  --cmd-cream: #FFF9F0;
+  --cmd-warm-gray: #605956;
+  --cmd-terracotta: #E86A45;
+  --cmd-terracotta-soft: #F4A98A;
+  --cmd-success: #15803D;
+  --cmd-error: #B91C1C;
+
+  /* ── Texto ── */
+  --cmd-text-primary: #2B2625;
+  --cmd-text-secondary: rgba(43, 38, 37, 0.75);
+  --cmd-text-muted: rgba(43, 38, 37, 0.55);
+  --cmd-text-on-dark: #FFF9F0;
+
+  /* ── Superfícies ── */
+  --cmd-border: rgba(43, 38, 37, 0.12);
+  --cmd-surface-subtle: rgba(43, 38, 37, 0.04);
+
+  /* ── Tipografia Display (wordmark autoral) ── */
+  --cmd-font-display: 'Comandinha Display', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --cmd-font-body: 'Comandinha Text', 'Nunito', system-ui, sans-serif;
+  --cmd-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Escala tipográfica ── */
+  --cmd-text-xs: 0.75rem;    /* 12px */
+  --cmd-text-sm: 0.875rem;   /* 14px */
+  --cmd-text-base: 1rem;     /* 16px */
+  --cmd-text-lg: 1.125rem;   /* 18px */
+  --cmd-text-xl: 1.25rem;    /* 20px */
+  --cmd-text-2xl: 1.5rem;    /* 24px */
+  --cmd-text-3xl: 1.875rem;  /* 30px */
+  --cmd-text-4xl: 2.25rem;   /* 36px */
+  --cmd-text-5xl: 3rem;      /* 48px */
+
+  /* ── Espaçamento de letras (identidade) ── */
+  --cmd-tracking-tight: -0.02em;
+  --cmd-tracking-normal: 0;
+  --cmd-tracking-wide: 0.04em;
+  --cmd-tracking-display: -0.03em;
+
+  /* ── Raios (formas amigáveis) ── */
+  --cmd-radius-sm: 8px;
+  --cmd-radius-md: 12px;
+  --cmd-radius-lg: 16px;
+  --cmd-radius-xl: 24px;
+  --cmd-radius-full: 9999px;
+}
