@@ -1,5 +1,17 @@
 (function () {
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var hero = document.querySelector('.hero');
+  if (hero) {
+    if (prefersReducedMotion) {
+      hero.classList.add('is-loaded');
+    } else {
+      requestAnimationFrame(function () {
+        hero.classList.add('is-loaded');
+      });
+    }
+  }
+
   var sections = document.querySelectorAll('.product, .features, .flow');
 
   if (sections.length) {
@@ -74,17 +86,24 @@
 
   function revealStats() {
     statsRoot.hidden = false;
-    var cards = statsRoot.querySelectorAll('.hero__stat');
-    cards.forEach(function (card, index) {
-      if (prefersReducedMotion) {
-        card.classList.add('is-visible');
-        return;
-      }
 
-      window.setTimeout(function () {
-        card.classList.add('is-visible');
-      }, index * 90);
-    });
+    var revealDelay = prefersReducedMotion ? 0 : 580;
+
+    window.setTimeout(function () {
+      statsRoot.classList.add('is-revealed');
+
+      var cards = statsRoot.querySelectorAll('.hero__stat');
+      cards.forEach(function (card, index) {
+        if (prefersReducedMotion) {
+          card.classList.add('is-visible');
+          return;
+        }
+
+        window.setTimeout(function () {
+          card.classList.add('is-visible');
+        }, index * 90);
+      });
+    }, revealDelay);
   }
 
   function loadConfettiScript() {
@@ -143,13 +162,17 @@
       { key: 'shiftsCompleted', duration: 1600 },
     ];
 
-    var animations = counterStats.map(function (stat) {
-      var element = statsRoot.querySelector('[data-stat="' + stat.key + '"]');
-      if (!element) return Promise.resolve();
-      return animateCounter(element, Number(data[stat.key]) || 0, stat.duration);
-    });
+    var counterDelay = prefersReducedMotion ? 0 : 900;
 
-    Promise.all(animations).then(celebrate);
+    window.setTimeout(function () {
+      var animations = counterStats.map(function (stat) {
+        var element = statsRoot.querySelector('[data-stat="' + stat.key + '"]');
+        if (!element) return Promise.resolve();
+        return animateCounter(element, Number(data[stat.key]) || 0, stat.duration);
+      });
+
+      Promise.all(animations).then(celebrate);
+    }, counterDelay);
   }
 
   fetch(apiBase + '/public/stats', { method: 'GET' })
