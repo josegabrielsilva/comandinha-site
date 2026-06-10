@@ -231,6 +231,93 @@ a { color: inherit; text-decoration: none; }
   font-weight: 700;
 }
 
+.hero__stats {
+  margin-top: clamp(1.5rem, 4vh, 2.5rem);
+  width: 100%;
+  max-width: 52rem;
+}
+
+.hero__stats[hidden] {
+  display: none;
+}
+
+.hero__stats-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 0.75rem;
+}
+
+.hero__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.875rem 0.625rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--cmd-border);
+  box-shadow: 0 8px 24px rgba(45, 36, 24, 0.06);
+  opacity: 0;
+  transform: translateY(12px) scale(0.96);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero__stat.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.hero__stat--highlight {
+  background: linear-gradient(145deg, rgba(252, 199, 69, 0.28), rgba(255, 249, 240, 0.95));
+  border-color: rgba(252, 199, 69, 0.55);
+}
+
+.hero__stat-value {
+  font-family: var(--cmd-font-display);
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--cmd-text-primary);
+  font-variant-numeric: tabular-nums;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero__stat-value.is-pop {
+  animation: stat-pop 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes stat-pop {
+  0% { transform: scale(0.82); }
+  55% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.hero__stat--highlight .hero__stat-value {
+  color: var(--cmd-amber-deep, #b8860b);
+}
+
+.hero__stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: var(--cmd-text-secondary);
+  line-height: 1.3;
+}
+
+@media (max-width: 540px) {
+  .hero__stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero__stat--highlight {
+    grid-column: 1 / -1;
+  }
+}
+
 /* ── Phone mock ── */
 
 .phone {
