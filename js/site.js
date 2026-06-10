@@ -178,6 +178,14 @@
     })
     .then(applyStats)
     .catch(function () {
-      /* keep hero clean when API is unavailable */
+      if (!isLocal) return;
+
+      applyStats({
+        establishments: 142,
+        ordersCompleted: 12847,
+        itemsSold: 89320,
+        shiftsCompleted: 384,
+        processedValueLabel: 'R$ 2,4 mi',
+      });
     });
 })();
