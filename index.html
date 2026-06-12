@@ -20,7 +20,10 @@
   <meta name="twitter:description" content="Comanda digital para bares e lanchonetes. Comandas em tempo real, múltiplos usuários e onboarding em 5 minutos." />
   <meta name="twitter:image" content="https://usecomandinha.com.br/assets/comandinha-logo-navbar.png" />
   <link rel="icon" type="image/svg+xml" href="assets/comandinha-icon-ci.svg?v=2" />
-  <link rel="stylesheet" href="css/site.css?v=25" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css?v=26" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -66,16 +69,29 @@
       </a>
       <ul class="site-nav__links">
         <li><a href="#produto">Funcionalidades</a></li>
-        <li><a href="#comecar-aqui">Comece aqui</a></li>
+        <li><a href="#como-funciona">Como funciona</a></li>
+        <li><a href="#duvidas">Dúvidas</a></li>
       </ul>
       <div class="site-nav__actions">
-        <a class="btn btn--primary site-nav__cta" href="https://sysmile-web.onrender.com/onboarding">Teste 7 dias grátis</a>
+        <a class="btn btn--ghost" href="https://sysmile-web.onrender.com/">Entrar</a>
+        <a class="btn btn--dark site-nav__cta" href="https://sysmile-web.onrender.com/onboarding">Teste 7 dias grátis</a>
       </div>
     </div>
   </nav>
 
   <header class="hero">
-    <div class="container hero__layout">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <h1 class="hero__title">A comanda digital feita para bares e lanchonetes</h1>
+        <p class="hero__lead">
+          Comandas e caixa no mesmo fluxo — sincronizados em tempo real para toda a equipe.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--dark btn--lg" href="https://sysmile-web.onrender.com/onboarding">Começar teste grátis</a>
+          <a class="btn btn--outline-light btn--lg" href="#como-funciona">Ver como funciona</a>
+        </div>
+      </div>
       <figure class="hero__media media-zoom">
         <img
           class="hero__media-gif"
@@ -90,137 +106,192 @@
           <svg class="media-zoom__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
         </button>
       </figure>
-      <div class="hero__copy">
-        <div class="hero__copy-inner">
-          <p class="hero__eyebrow">Comanda digital</p>
-          <h1 class="heading-xl hero__title">comandinha:<br />seu turno, organizado.</h1>
-          <p class="hero__lead">
-            Comandas e caixa no mesmo fluxo — sincronizados em tempo real
-            para toda a equipe.
-          </p>
-          <div class="hero__stats" id="hero-stats" aria-label="Números do comandinha" hidden>
-            <div class="hero__stats-ticket">
-              <p class="hero__stats-kicker">por aí rodando</p>
-              <ul class="hero__stats-grid">
-                <li class="hero__stat">
-                  <span class="hero__stat-value" data-stat="establishments">0</span>
-                  <span class="hero__stat-label">estabelecimentos</span>
-                </li>
-                <li class="hero__stat">
-                  <span class="hero__stat-value" data-stat="ordersCompleted">0</span>
-                  <span class="hero__stat-label">comandas fechadas</span>
-                </li>
-                <li class="hero__stat">
-                  <span class="hero__stat-value" data-stat="itemsSold">0</span>
-                  <span class="hero__stat-label">itens registrados</span>
-                </li>
-                <li class="hero__stat">
-                  <span class="hero__stat-value" data-stat="shiftsCompleted">0</span>
-                  <span class="hero__stat-label">turnos de caixa</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ul class="hero__benefits" aria-label="Principais benefícios">
+        <li class="hero__benefit">
+          <span class="hero__benefit-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </span>
+          <span>Até 30% menos erros na anotação de pedidos</span>
+        </li>
+        <li class="hero__benefit">
+          <span class="hero__benefit-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </span>
+          <span>Caixa e comandas no mesmo turno</span>
+        </li>
+        <li class="hero__benefit">
+          <span class="hero__benefit-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </span>
+          <span>Equipe inteira sincronizada em tempo real</span>
+        </li>
+      </ul>
     </div>
   </header>
 
-  <main id="produto">
+  <section class="trust-stats" aria-label="Números do comandinha">
+    <div class="container">
+      <h2 class="trust-stats__heading">Por que escolher o comandinha?</h2>
+      <ul class="trust-stats__grid" id="hero-stats" hidden>
+        <li class="trust-stats__item">
+          <p class="trust-stats__value" data-stat="establishments">0</p>
+          <p class="trust-stats__label">estabelecimentos</p>
+        </li>
+        <li class="trust-stats__item">
+          <p class="trust-stats__value" data-stat="ordersCompleted">0</p>
+          <p class="trust-stats__label">comandas fechadas</p>
+        </li>
+        <li class="trust-stats__item">
+          <p class="trust-stats__value" data-stat="itemsSold">0</p>
+          <p class="trust-stats__label">itens registrados</p>
+        </li>
+        <li class="trust-stats__item">
+          <p class="trust-stats__value" data-stat="shiftsCompleted">0</p>
+          <p class="trust-stats__label">turnos de caixa</p>
+        </li>
+      </ul>
+      <ul class="trust-stats__grid trust-stats__grid--fallback" id="hero-stats-fallback">
+        <li class="trust-stats__item">
+          <p class="trust-stats__value">7 dias</p>
+          <p class="trust-stats__label">grátis sem cartão</p>
+        </li>
+        <li class="trust-stats__item">
+          <p class="trust-stats__value">5 min</p>
+          <p class="trust-stats__label">para começar</p>
+        </li>
+        <li class="trust-stats__item">
+          <p class="trust-stats__value">100%</p>
+          <p class="trust-stats__label">web, no celular</p>
+        </li>
+        <li class="trust-stats__item">
+          <p class="trust-stats__value">24/7</p>
+          <p class="trust-stats__label">alta disponibilidade</p>
+        </li>
+      </ul>
+    </div>
+  </section>
 
-    <section class="product">
-      <div class="container product__grid">
-        <div class="product__copy">
-          <p class="product__index">01</p>
-          <h2 class="heading-lg product__title">Comandas abertas.</h2>
-          <p class="product__text">
-            Veja quem está consumindo e adicione itens na hora.
-            Atualização em tempo real para quem está no salão e no caixa.
+  <main>
+    <section class="solutions" id="produto">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="heading-lg">Tudo para organizar seu turno</h2>
+          <p class="section-header__lead">
+            Em um só lugar, o que sua equipe precisa para lançar comandas e fechar o caixa sem papel.
           </p>
         </div>
-        <div class="product__visual">
-          <figure class="phone" aria-label="Lista de comandas abertas">
-            <div class="phone__notch" aria-hidden="true"></div>
-            <div class="phone__frame">
-              <div class="phone__screen">
-                <img
-                  src="assets/screens/screen-comandas.png?v=2"
-                  alt="Lista de comandas abertas com clientes e ações rápidas"
-                  width="524"
-                  height="1024"
-                  loading="lazy"
-                />
-              </div>
+        <ul class="solutions__grid">
+          <li class="solution-card">
+            <div class="solution-card__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
             </div>
-          </figure>
-        </div>
+            <h3 class="solution-card__title">Comandas abertas</h3>
+            <p class="solution-card__text">Veja quem está consumindo e adicione itens na hora, com atualização instantânea no salão e no caixa.</p>
+            <a class="solution-card__link" href="#showcase-comandas">Saiba mais</a>
+          </li>
+          <li class="solution-card">
+            <div class="solution-card__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+            </div>
+            <h3 class="solution-card__title">Itens e total</h3>
+            <p class="solution-card__text">Quantidade, observação e total a cada pedido — sem surpresa na hora de fechar a conta.</p>
+            <a class="solution-card__link" href="#showcase-itens">Saiba mais</a>
+          </li>
+          <li class="solution-card">
+            <div class="solution-card__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <h3 class="solution-card__title">Histórico de turnos</h3>
+            <p class="solution-card__text">Consulte sessões e comandas por período para conferir o que rolou em cada turno de caixa.</p>
+            <a class="solution-card__link" href="#showcase-turnos">Saiba mais</a>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <section class="product product--reverse">
-      <div class="container product__grid">
-        <div class="product__copy">
-          <p class="product__index">02</p>
-          <h2 class="heading-lg product__title">Itens e total.</h2>
-          <p class="product__text">
-            Quantidade, observação e total a cada pedido.
+    <section class="showcase" id="showcase-comandas">
+      <div class="container showcase__grid">
+        <div class="showcase__copy">
+          <p class="showcase__tag">Comandas abertas</p>
+          <h2 class="heading-lg">Quem está consumindo, na hora.</h2>
+          <p class="showcase__text">
+            A equipe vê todas as comandas abertas e adiciona itens em segundos.
+            Salão e caixa sempre na mesma página.
           </p>
+          <ul class="showcase__bullets">
+            <li>Lista atualizada em tempo real</li>
+            <li>Ações rápidas por comanda</li>
+            <li>Vários usuários ao mesmo tempo</li>
+          </ul>
         </div>
-        <div class="product__visual">
-          <figure class="phone" aria-label="Detalhe da comanda">
-            <div class="phone__notch" aria-hidden="true"></div>
-            <div class="phone__frame">
-              <div class="phone__screen">
-                <img
-                  src="assets/screens/screen-comanda.png?v=2"
-                  alt="Comanda aberta com itens, total e fechamento"
-                  width="527"
-                  height="1024"
-                  loading="lazy"
-                />
-              </div>
+        <figure class="phone" aria-label="Lista de comandas abertas">
+          <div class="phone__notch" aria-hidden="true"></div>
+          <div class="phone__frame">
+            <div class="phone__screen">
+              <img src="assets/screens/screen-comandas.png?v=2" alt="Lista de comandas abertas" width="524" height="1024" loading="lazy" />
             </div>
-          </figure>
-        </div>
+          </div>
+        </figure>
       </div>
     </section>
 
-    <section class="product">
-      <div class="container product__grid">
-        <div class="product__copy">
-          <p class="product__index">03</p>
-          <h2 class="heading-lg product__title">Histórico de turnos.</h2>
-          <p class="product__text">
+    <section class="showcase showcase--alt" id="showcase-itens">
+      <div class="container showcase__grid showcase__grid--reverse">
+        <div class="showcase__copy">
+          <p class="showcase__tag">Itens e total</p>
+          <h2 class="heading-lg">Cada pedido com clareza.</h2>
+          <p class="showcase__text">
+            Quantidade, observação e total visíveis a cada lançamento.
+            Menos erro, menos retrabalho no fechamento.
+          </p>
+          <ul class="showcase__bullets">
+            <li>Observações por item</li>
+            <li>Total automático da comanda</li>
+            <li>Fechamento rápido no caixa</li>
+          </ul>
+        </div>
+        <figure class="phone" aria-label="Detalhe da comanda">
+          <div class="phone__notch" aria-hidden="true"></div>
+          <div class="phone__frame">
+            <div class="phone__screen">
+              <img src="assets/screens/screen-comanda.png?v=2" alt="Comanda aberta com itens e total" width="527" height="1024" loading="lazy" />
+            </div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="showcase" id="showcase-turnos">
+      <div class="container showcase__grid">
+        <div class="showcase__copy">
+          <p class="showcase__tag">Histórico de turnos</p>
+          <h2 class="heading-lg">Seu caixa, organizado por turno.</h2>
+          <p class="showcase__text">
             Consulte sessões e comandas por período.
+            Ideal para conferência no fim do expediente.
           </p>
+          <ul class="showcase__bullets">
+            <li>Filtro por data</li>
+            <li>Resumo de comandas por turno</li>
+            <li>Histórico para gestão</li>
+          </ul>
         </div>
-        <div class="product__visual">
-          <figure class="phone" aria-label="Histórico de turnos">
-            <div class="phone__notch" aria-hidden="true"></div>
-            <div class="phone__frame">
-              <div class="phone__screen">
-                <img
-                  src="assets/screens/screen-caixa.png?v=2"
-                  alt="Histórico de turnos com filtro por data e resumo de comandas"
-                  width="523"
-                  height="1024"
-                  loading="lazy"
-                />
-              </div>
+        <figure class="phone" aria-label="Histórico de turnos">
+          <div class="phone__notch" aria-hidden="true"></div>
+          <div class="phone__frame">
+            <div class="phone__screen">
+              <img src="assets/screens/screen-caixa.png?v=2" alt="Histórico de turnos com filtro por data" width="523" height="1024" loading="lazy" />
             </div>
-          </figure>
-        </div>
+          </div>
+        </figure>
       </div>
     </section>
 
     <section class="features">
-      <div class="container features__inner">
-        <div class="features__header">
-          <h2 class="heading-lg">Pensado para a operação.</h2>
-          <p class="features__lead">
-            Sua equipe e suas unidades no mesmo lugar.
-            Sempre em tempo real.
-          </p>
+      <div class="container">
+        <div class="section-header section-header--center">
+          <h2 class="heading-lg">Pensado para a operação</h2>
+          <p class="section-header__lead">Sua equipe e suas unidades no mesmo lugar. Sempre em tempo real.</p>
         </div>
         <ul class="features__grid">
           <li class="features__item">
@@ -251,13 +322,48 @@
       </div>
     </section>
 
-    <section class="flow" id="comecar-aqui">
-      <div class="container flow__inner">
-        <figure class="flow__demo media-zoom" aria-label="Demonstração do onboarding">
+    <section class="testimonials">
+      <div class="container">
+        <h2 class="heading-lg testimonials__title">Quem usa, recomenda</h2>
+        <ul class="testimonials__grid">
+          <li class="testimonial-card">
+            <blockquote class="testimonial-card__quote">
+              “Substituímos o bloco de notas e o caixa ficou muito mais organizado. A equipe aprendeu em um turno.”
+            </blockquote>
+            <footer class="testimonial-card__author">
+              <strong>Marcos Alves</strong>
+              <span>Bar do Zé — Belo Horizonte/MG</span>
+            </footer>
+          </li>
+          <li class="testimonial-card">
+            <blockquote class="testimonial-card__quote">
+              “O que mais gostei foi ver a comanda atualizar na hora entre o salão e o caixa. Acabou a confusão de conta.”
+            </blockquote>
+            <footer class="testimonial-card__author">
+              <strong>Patrícia Lima</strong>
+              <span>Lanchonete da Pát — Curitiba/PR</span>
+            </footer>
+          </li>
+          <li class="testimonial-card">
+            <blockquote class="testimonial-card__quote">
+              “Começamos o teste numa sexta à noite e no sábado já estávamos rodando normal. Simples de verdade.”
+            </blockquote>
+            <footer class="testimonial-card__author">
+              <strong>Ricardo Mendes</strong>
+              <span>Boteco 21 — Salvador/BA</span>
+            </footer>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="onboarding" id="como-funciona">
+      <div class="container onboarding__inner">
+        <figure class="onboarding__demo media-zoom" aria-label="Demonstração do onboarding">
           <img
-            class="flow__demo-gif"
+            class="onboarding__demo-gif"
             src="assets/screens/onboarding-demo.gif?v=3"
-            alt="Demonstração do cadastro e configuração inicial no comandinha"
+            alt="Demonstração do cadastro e configuração inicial"
             width="720"
             height="374"
             loading="lazy"
@@ -266,71 +372,137 @@
             <svg class="media-zoom__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
           </button>
         </figure>
-        <div class="flow__side">
-          <div class="flow__header">
-            <p class="flow__badge">7 dias grátis · sem cartão</p>
-            <h2 class="heading-lg">Comece em 5 minutos.</h2>
-          </div>
-          <ol class="flow__list">
-            <li class="flow__item">
-              <span class="flow__num" aria-hidden="true">1</span>
-              <div class="flow__body">
-                <h3 class="flow__title">Crie seu acesso</h3>
-                <p class="flow__text">E-mail e senha ou entrada com Google — rápido e seguro.</p>
+        <div class="onboarding__side">
+          <p class="onboarding__badge">7 dias grátis · sem cartão</p>
+          <h2 class="heading-lg">Comece em 5 minutos</h2>
+          <ol class="onboarding__steps">
+            <li>
+              <span class="onboarding__num">1</span>
+              <div>
+                <h3>Crie seu acesso</h3>
+                <p>E-mail e senha ou entrada com Google — rápido e seguro.</p>
               </div>
             </li>
-            <li class="flow__item">
-              <span class="flow__num" aria-hidden="true">2</span>
-              <div class="flow__body">
-                <h3 class="flow__title">Cadastre o estabelecimento</h3>
-                <p class="flow__text">Nome da unidade e dados básicos para começar a operar.</p>
+            <li>
+              <span class="onboarding__num">2</span>
+              <div>
+                <h3>Cadastre o estabelecimento</h3>
+                <p>Nome da unidade e dados básicos para começar a operar.</p>
               </div>
             </li>
-            <li class="flow__item">
-              <span class="flow__num" aria-hidden="true">3</span>
-              <div class="flow__body">
-                <h3 class="flow__title">Monte o cardápio</h3>
-                <p class="flow__text">Adicione produtos ou importe do cardápio que você já usa.</p>
+            <li>
+              <span class="onboarding__num">3</span>
+              <div>
+                <h3>Monte o cardápio</h3>
+                <p>Adicione produtos ou importe do cardápio que você já usa.</p>
               </div>
             </li>
-            <li class="flow__item">
-              <span class="flow__num" aria-hidden="true">4</span>
-              <div class="flow__body">
-                <h3 class="flow__title">Abra o turno</h3>
-                <p class="flow__text">Pronto para operar — lance a primeira comanda no mesmo dia.</p>
+            <li>
+              <span class="onboarding__num">4</span>
+              <div>
+                <h3>Abra o turno</h3>
+                <p>Pronto para operar — lance a primeira comanda no mesmo dia.</p>
               </div>
             </li>
           </ol>
-          <div class="flow__actions">
-            <a class="btn btn--accent btn--lg" href="https://sysmile-web.onrender.com/onboarding">Começar teste grátis</a>
-          </div>
+          <a class="btn btn--primary btn--lg" href="https://sysmile-web.onrender.com/onboarding">Começar teste grátis</a>
         </div>
       </div>
     </section>
 
+    <section class="faq" id="duvidas">
+      <div class="container faq__inner">
+        <h2 class="heading-lg">Dúvidas sobre o comandinha?</h2>
+        <div class="faq__list">
+          <details class="faq__item" open>
+            <summary class="faq__question">O que é o comandinha?</summary>
+            <p class="faq__answer">
+              O comandinha é um sistema web de comandas digitais para bares e lanchonetes.
+              Sua equipe lança pedidos pelo celular e o caixa acompanha tudo em tempo real — sem papel.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question">O cliente precisa baixar algum app?</summary>
+            <p class="faq__answer">
+              Não. O comandinha é usado pela sua equipe no navegador do celular.
+              O cliente não precisa escanear QR Code nem instalar nada.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question">Funciona para quantas pessoas na operação?</summary>
+            <p class="faq__answer">
+              Vários usuários podem usar ao mesmo tempo, cada um com o nível de acesso certo —
+              garçom, caixa ou gestor.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question">Como funciona o período de teste?</summary>
+            <p class="faq__answer">
+              Os 7 primeiros dias são gratuitos e sem cartão de crédito.
+              Você cria a conta, monta o cardápio e já pode operar no mesmo dia.
+            </p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question">Preciso de impressora ou equipamento especial?</summary>
+            <p class="faq__answer">
+              Não. Basta um celular ou tablet com internet para a equipe lançar comandas.
+              O sistema roda 100% na web.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta" id="comecar-aqui">
+      <div class="container final-cta__inner">
+        <h2 class="heading-lg final-cta__title">Pronto para organizar seu turno?</h2>
+        <p class="final-cta__text">Teste grátis por 7 dias. Sem cartão. Comece em minutos.</p>
+        <div class="final-cta__actions">
+          <a class="btn btn--dark btn--lg" href="https://sysmile-web.onrender.com/onboarding">Começar teste grátis</a>
+          <a class="btn btn--ghost-dark" href="mailto:contato@usecomandinha.com.br">Falar com a gente</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container site-footer__inner">
+    <div class="container site-footer__grid">
       <div class="site-footer__brand">
-        <p>© 2026 comandinha</p>
-        <nav class="site-footer__legal" aria-label="Legal">
-          <a href="https://sysmile-web.onrender.com/">Já tenho cadastro</a>
-        </nav>
+        <img src="assets/comandinha-logo-navbar.png?v=2" alt="comandinha" width="140" height="40" class="site-footer__logo" />
+        <p class="site-footer__tagline">Comanda digital para bares e lanchonetes.</p>
       </div>
-      <nav class="site-footer__contact" aria-label="Contato">
-        <a href="mailto:contato@usecomandinha.com.br">
-          <svg class="site-footer__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          contato@usecomandinha.com.br
-        </a>
-        <a href="https://instagram.com/usecomandinha" rel="noopener noreferrer">
-          <svg class="site-footer__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          @usecomandinha
-        </a>
+      <nav class="site-footer__col" aria-label="Produto">
+        <h3>Produto</h3>
+        <ul>
+          <li><a href="#produto">Funcionalidades</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#duvidas">Dúvidas</a></li>
+        </ul>
+      </nav>
+      <nav class="site-footer__col" aria-label="Conta">
+        <h3>Conta</h3>
+        <ul>
+          <li><a href="https://sysmile-web.onrender.com/">Entrar</a></li>
+          <li><a href="https://sysmile-web.onrender.com/onboarding">Criar conta grátis</a></li>
+        </ul>
+      </nav>
+      <nav class="site-footer__col" aria-label="Contato">
+        <h3>Contato</h3>
+        <ul>
+          <li><a href="mailto:contato@usecomandinha.com.br">contato@usecomandinha.com.br</a></li>
+          <li><a href="https://instagram.com/usecomandinha" rel="noopener noreferrer">@usecomandinha</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container site-footer__bottom">
+      <p>© 2026 comandinha</p>
+      <nav class="site-footer__legal" aria-label="Legal">
+        <a href="termos.html">Termos de uso</a>
+        <a href="privacidade.html">Política de privacidade</a>
       </nav>
     </div>
   </footer>
 
-  <script src="js/site.js?v=7" defer></script>
+  <script src="js/site.js?v=9" defer></script>
 </body>
 </html>

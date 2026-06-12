@@ -1,62 +1,80 @@
 /**
  * Comandinha — Design Tokens
- * Marca para MEI: comandas digitais simples e acolhedoras
- * Domínio: usecomandinha.com.br
+ * Estrutura inspirada na Goomer (Inter, gradientes, neutros)
+ * Identidade própria: amarelo de destaque sobre azul institucional
  */
 
 :root {
-  /* ── Cores primárias ── */
-  --cmd-brand-dark: #2B2625;
-  --cmd-brand-dark-hover: #1F1B1A;
+  /* ── Primárias (paleta Goomer-adaptada) ── */
+  --cmd-primary-900: #443FB8;
+  --cmd-primary-800: #0045D5;
+  --cmd-primary-700: #0E5CFE;
+  --cmd-primary-650: #2190D7;
+  --cmd-primary-600: #3362e5;
+  --cmd-primary-50: #EBF5FF;
+  --cmd-primary-100: #E6E6F0;
+
+  /* ── Marca Comandinha (acentos) ── */
+  --cmd-brand-dark: #1a1a1a;
+  --cmd-brand-dark-hover: #000000;
   --cmd-brand-yellow: #FCC745;
   --cmd-brand-yellow-hover: #E5B63E;
-  --cmd-brand-yellow-muted: #C9A23A;
+  --cmd-brand-yellow-muted: #FFD184;
 
-  /* ── Cores de apoio (calor MEI) ── */
-  --cmd-cream: #F5F3F0;
-  --cmd-cream-rgb: 245, 243, 240;
-  --cmd-warm-gray: #605956;
+  /* ── Neutros ── */
+  --cmd-white: #ffffff;
+  --cmd-neutral-900: #1a1a1a;
+  --cmd-neutral-600: #4A4A4A;
+  --cmd-neutral-400: #616161;
+  --cmd-neutral-200: #8A8A87;
+  --cmd-neutral-100: #cfd1d3;
+  --cmd-neutral-50: #e8e9ea;
+  --cmd-gray-6: #F1F1F1;
+  --cmd-gray-5: #F3F3F3;
+  --cmd-gray-4: #F7F7F7;
+
+  /* ── Legado (compat) ── */
+  --cmd-cream: #F7F7F7;
+  --cmd-cream-rgb: 247, 247, 247;
+  --cmd-warm-gray: #616161;
   --cmd-terracotta: #E86A45;
-  --cmd-terracotta-soft: #F4A98A;
   --cmd-success: #15803D;
-  --cmd-error: #B91C1C;
 
   /* ── Texto ── */
-  --cmd-text-primary: #2B2625;
-  --cmd-text-secondary: rgba(43, 38, 37, 0.75);
-  --cmd-text-muted: rgba(43, 38, 37, 0.55);
-  --cmd-text-on-dark: #F5F3F0;
+  --cmd-text-primary: #1a1a1a;
+  --cmd-text-secondary: #4A4A4A;
+  --cmd-text-muted: #8A8A87;
+  --cmd-text-on-dark: #ffffff;
+  --cmd-text-on-primary: #ffffff;
 
   /* ── Superfícies ── */
-  --cmd-border: rgba(43, 38, 37, 0.12);
-  --cmd-surface-subtle: rgba(43, 38, 37, 0.04);
+  --cmd-border: rgba(26, 26, 26, 0.1);
+  --cmd-border-light: rgba(255, 255, 255, 0.2);
+  --cmd-surface-subtle: #F7F7F7;
 
-  /* ── Tipografia Display (wordmark autoral) ── */
-  --cmd-font-display: 'Comandinha Display', 'Plus Jakarta Sans', system-ui, sans-serif;
-  --cmd-font-body: 'Comandinha Text', 'Nunito', system-ui, sans-serif;
-  --cmd-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  /* ── Gradientes ── */
+  --cmd-hero-gradient: linear-gradient(
+    165deg,
+    var(--cmd-primary-900) 0%,
+    var(--cmd-primary-800) 38%,
+    var(--cmd-primary-650) 100%
+  );
 
-  /* ── Escala tipográfica ── */
-  --cmd-text-xs: 0.75rem;    /* 12px */
-  --cmd-text-sm: 0.875rem;   /* 14px */
-  --cmd-text-base: 1rem;     /* 16px */
-  --cmd-text-lg: 1.125rem;   /* 18px */
-  --cmd-text-xl: 1.25rem;    /* 20px */
-  --cmd-text-2xl: 1.5rem;    /* 24px */
-  --cmd-text-3xl: 1.875rem;  /* 30px */
-  --cmd-text-4xl: 2.25rem;   /* 36px */
-  --cmd-text-5xl: 3rem;      /* 48px */
+  /* ── Tipografia ── */
+  --cmd-font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --cmd-font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
-  /* ── Espaçamento de letras (identidade) ── */
-  --cmd-tracking-tight: -0.02em;
-  --cmd-tracking-normal: 0;
-  --cmd-tracking-wide: 0.04em;
-  --cmd-tracking-display: -0.03em;
-
-  /* ── Raios (formas amigáveis) ── */
+  /* ── Raios ── */
   --cmd-radius-sm: 8px;
   --cmd-radius-md: 12px;
   --cmd-radius-lg: 16px;
   --cmd-radius-xl: 24px;
+  --cmd-radius-2xl: 32px;
   --cmd-radius-full: 9999px;
+
+  /* ── Sombras ── */
+  --cmd-shadow-sm: 0 1px 3px rgba(26, 26, 26, 0.06);
+  --cmd-shadow-md: 0 8px 24px rgba(26, 26, 26, 0.08);
+  --cmd-shadow-lg: 0 16px 48px rgba(26, 26, 26, 0.12);
+  --cmd-shadow-card: 0 4px 20px rgba(68, 63, 184, 0.08);
 }

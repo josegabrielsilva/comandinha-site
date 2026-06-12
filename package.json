@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "python3 -m http.server 9090",
     "capture-screens": "node scripts/capture-screens.mjs",
     "prepare-deploy": "bash scripts/prepare-deploy.sh",
     "deploy": "bash scripts/deploy-hostgator.sh"

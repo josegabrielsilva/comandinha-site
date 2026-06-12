@@ -60,22 +60,13 @@
     });
   }
 
-  var hero = document.querySelector('.hero');
-  if (hero) {
-    if (prefersReducedMotion) {
-      hero.classList.add('is-loaded');
-    } else {
-      requestAnimationFrame(function () {
-        hero.classList.add('is-loaded');
-      });
-    }
-  }
+  var revealSections = document.querySelectorAll(
+    '.solutions, .showcase, .features, .testimonials, .onboarding'
+  );
 
-  var sections = document.querySelectorAll('.product, .features, .flow');
-
-  if (sections.length) {
+  if (revealSections.length) {
     if (prefersReducedMotion) {
-      sections.forEach(function (section) {
+      revealSections.forEach(function (section) {
         section.classList.add('is-visible');
       });
     } else {
@@ -90,18 +81,19 @@
         },
         {
           root: null,
-          rootMargin: '0px 0px -12% 0px',
-          threshold: 0.2,
+          rootMargin: '0px 0px -10% 0px',
+          threshold: 0.15,
         }
       );
 
-      sections.forEach(function (section) {
+      revealSections.forEach(function (section) {
         observer.observe(section);
       });
     }
   }
 
   var statsRoot = document.getElementById('hero-stats');
+  var statsFallback = document.getElementById('hero-stats-fallback');
   if (!statsRoot) return;
 
   var host = window.location.hostname;
@@ -143,76 +135,17 @@
     });
   }
 
-  function revealStats() {
-    statsRoot.hidden = false;
-
-    var revealDelay = prefersReducedMotion ? 0 : 580;
-
-    window.setTimeout(function () {
-      statsRoot.classList.add('is-revealed');
-
-      var cards = statsRoot.querySelectorAll('.hero__stat');
-      cards.forEach(function (card, index) {
-        if (prefersReducedMotion) {
-          card.classList.add('is-visible');
-          return;
-        }
-
-        window.setTimeout(function () {
-          card.classList.add('is-visible');
-        }, index * 90);
-      });
-    }, revealDelay);
-  }
-
-  function loadConfettiScript() {
-    return new Promise(function (resolve, reject) {
-      if (window.confetti) {
-        resolve(window.confetti);
-        return;
-      }
-
-      var script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js';
-      script.async = true;
-      script.onload = function () {
-        resolve(window.confetti);
-      };
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
-  }
-
-  function celebrate() {
-    if (prefersReducedMotion) return;
-
-    loadConfettiScript()
-      .then(function (confetti) {
-        var burst = function (particleRatio, opts) {
-          confetti(
-            Object.assign({}, opts, {
-              particleCount: Math.floor(180 * particleRatio),
-              spread: 72,
-              startVelocity: 42,
-              scalar: 0.9,
-              origin: { y: 0.62 },
-            })
-          );
-        };
-
-        burst(0.28, { origin: { x: 0.18, y: 0.62 } });
-        burst(0.28, { origin: { x: 0.82, y: 0.62 } });
-        window.setTimeout(function () {
-          burst(0.22, { origin: { x: 0.5, y: 0.58 } });
-        }, 180);
-      })
-      .catch(function () {
-        /* confetti is optional */
-      });
-  }
-
   function applyStats(data) {
-    revealStats();
+    var total =
+      (Number(data.establishments) || 0) +
+      (Number(data.ordersCompleted) || 0) +
+      (Number(data.itemsSold) || 0) +
+      (Number(data.shiftsCompleted) || 0);
+
+    if (total <= 0) return;
+
+    statsRoot.hidden = false;
+    if (statsFallback) statsFallback.classList.add('is-hidden');
 
     var counterStats = [
       { key: 'establishments', duration: 1400 },
@@ -221,16 +154,14 @@
       { key: 'shiftsCompleted', duration: 1600 },
     ];
 
-    var counterDelay = prefersReducedMotion ? 0 : 900;
+    var counterDelay = prefersReducedMotion ? 0 : 300;
 
     window.setTimeout(function () {
-      var animations = counterStats.map(function (stat) {
+      counterStats.forEach(function (stat) {
         var element = statsRoot.querySelector('[data-stat="' + stat.key + '"]');
-        if (!element) return Promise.resolve();
-        return animateCounter(element, Number(data[stat.key]) || 0, stat.duration);
+        if (!element) return;
+        animateCounter(element, Number(data[stat.key]) || 0, stat.duration);
       });
-
-      Promise.all(animations).then(celebrate);
     }, counterDelay);
   }
 
