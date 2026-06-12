@@ -692,6 +692,15 @@ body.is-lightbox-open { overflow: hidden; }
   .testimonials__grid { grid-template-columns: repeat(3, 1fr); }
 }
 
+.testimonials__grid--single {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .testimonials__grid--single { grid-template-columns: 1fr; }
+}
+
 .testimonial-card {
   display: flex;
   flex-direction: column;
