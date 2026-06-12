@@ -1,3 +1,10 @@
+# www → domínio raiz (evita conteúdo duplicado no Google)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.usecomandinha\.com\.br$ [NC]
+  RewriteRule ^ https://usecomandinha.com.br%{REQUEST_URI} [L,R=301]
+</IfModule>
+
 # HTML sempre fresco (evita Cloudflare/navegador servir index antigo)
 <FilesMatch "\.(html)$">
   <IfModule mod_headers.c>
