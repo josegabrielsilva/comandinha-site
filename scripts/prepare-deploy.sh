@@ -8,7 +8,7 @@ DEST="${1:-$ROOT/dist}"
 rm -rf "$DEST"
 mkdir -p "$DEST"
 
-cp "$ROOT/index.html" "$ROOT/privacidade.html" "$ROOT/termos.html" "$ROOT/.htaccess" "$DEST/"
+cp "$ROOT/index.html" "$ROOT/privacidade.html" "$ROOT/termos.html" "$ROOT/.htaccess" "$ROOT/robots.txt" "$ROOT/sitemap.xml" "$DEST/"
 cp -R "$ROOT/css" "$ROOT/js" "$ROOT/assets" "$DEST/"
 
 # Limpa lixo de macOS se existir

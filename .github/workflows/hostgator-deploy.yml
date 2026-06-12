@@ -19,6 +19,8 @@ on:
       - 'index.html'
       - 'privacidade.html'
       - 'termos.html'
+      - 'robots.txt'
+      - 'sitemap.xml'
       - '.htaccess'
       - 'css/**'
       - 'js/**'
