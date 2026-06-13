@@ -1,25 +1,24 @@
 /**
  * Comandinha — Design Tokens
- * Estrutura inspirada na Goomer (Inter, gradientes, neutros)
- * Identidade própria: amarelo de destaque sobre azul institucional
+ * Identidade da logo: marrom escuro + amarelo sobre fundo claro
  */
 
 :root {
-  /* ── Primárias (paleta Goomer-adaptada) ── */
-  --cmd-primary-900: #443FB8;
-  --cmd-primary-800: #0045D5;
-  --cmd-primary-700: #0E5CFE;
-  --cmd-primary-650: #2190D7;
-  --cmd-primary-600: #3362e5;
-  --cmd-primary-50: #EBF5FF;
-  --cmd-primary-100: #E6E6F0;
+  /* ── Acento (cores da logo) ── */
+  --cmd-primary-900: #2B2625;
+  --cmd-primary-800: #1F1B1A;
+  --cmd-primary-700: #2B2625;
+  --cmd-primary-650: #605956;
+  --cmd-primary-600: #605956;
+  --cmd-primary-50: rgba(252, 199, 69, 0.15);
+  --cmd-primary-100: rgba(252, 199, 69, 0.28);
 
-  /* ── Marca Comandinha (acentos) ── */
-  --cmd-brand-dark: #1a1a1a;
-  --cmd-brand-dark-hover: #000000;
+  /* ── Marca Comandinha ── */
+  --cmd-brand-dark: #2B2625;
+  --cmd-brand-dark-hover: #1F1B1A;
   --cmd-brand-yellow: #FCC745;
   --cmd-brand-yellow-hover: #E5B63E;
-  --cmd-brand-yellow-muted: #FFD184;
+  --cmd-brand-yellow-muted: #C9A23A;
 
   /* ── Neutros ── */
   --cmd-white: #ffffff;
@@ -34,31 +33,23 @@
   --cmd-gray-4: #F7F7F7;
 
   /* ── Legado (compat) ── */
-  --cmd-cream: #F7F7F7;
-  --cmd-cream-rgb: 247, 247, 247;
+  --cmd-cream: #FFF9F0;
+  --cmd-cream-rgb: 255, 249, 240;
   --cmd-warm-gray: #616161;
   --cmd-terracotta: #E86A45;
   --cmd-success: #15803D;
 
   /* ── Texto ── */
-  --cmd-text-primary: #1a1a1a;
-  --cmd-text-secondary: #4A4A4A;
+  --cmd-text-primary: #2B2625;
+  --cmd-text-secondary: #605956;
   --cmd-text-muted: #8A8A87;
-  --cmd-text-on-dark: #ffffff;
+  --cmd-text-on-dark: #FFF9F0;
   --cmd-text-on-primary: #ffffff;
 
   /* ── Superfícies ── */
   --cmd-border: rgba(26, 26, 26, 0.1);
   --cmd-border-light: rgba(255, 255, 255, 0.2);
   --cmd-surface-subtle: #F7F7F7;
-
-  /* ── Gradientes ── */
-  --cmd-hero-gradient: linear-gradient(
-    165deg,
-    var(--cmd-primary-900) 0%,
-    var(--cmd-primary-800) 38%,
-    var(--cmd-primary-650) 100%
-  );
 
   /* ── Tipografia ── */
   --cmd-font-display: 'Inter', system-ui, -apple-system, sans-serif;
@@ -76,5 +67,5 @@
   --cmd-shadow-sm: 0 1px 3px rgba(26, 26, 26, 0.06);
   --cmd-shadow-md: 0 8px 24px rgba(26, 26, 26, 0.08);
   --cmd-shadow-lg: 0 16px 48px rgba(26, 26, 26, 0.12);
-  --cmd-shadow-card: 0 4px 20px rgba(68, 63, 184, 0.08);
+  --cmd-shadow-card: 0 4px 20px rgba(43, 38, 37, 0.08);
 }
