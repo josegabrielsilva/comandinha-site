@@ -17,12 +17,14 @@
 
     var lightboxImage = lightbox.querySelector('.media-lightbox__img');
     var lightboxClose = lightbox.querySelector('.media-lightbox__close');
+    var lightboxDialog = lightbox.querySelector('.media-lightbox__dialog');
     var lastTrigger = null;
 
     function closeLightbox() {
       lightbox.hidden = true;
       document.body.classList.remove('is-lightbox-open');
       lightboxImage.removeAttribute('src');
+      lightboxDialog.classList.remove('media-lightbox__dialog--phone');
       if (lastTrigger) {
         lastTrigger.focus();
         lastTrigger = null;
@@ -37,6 +39,7 @@
       lastTrigger = trigger;
       lightboxImage.src = image.currentSrc || image.src;
       lightboxImage.alt = image.alt;
+      lightboxDialog.classList.toggle('media-lightbox__dialog--phone', !!figure.querySelector('.phone'));
       lightbox.hidden = false;
       document.body.classList.add('is-lightbox-open');
       lightboxClose.focus();
@@ -61,7 +64,7 @@
   }
 
   var revealSections = document.querySelectorAll(
-    '.solutions, .showcase, .features, .testimonials, .onboarding'
+    '.showcase, .features, .onboarding'
   );
 
   if (revealSections.length) {
@@ -81,8 +84,8 @@
         },
         {
           root: null,
-          rootMargin: '0px 0px -10% 0px',
-          threshold: 0.15,
+          rootMargin: '0px 0px -8% 0px',
+          threshold: 0.12,
         }
       );
 
@@ -91,94 +94,4 @@
       });
     }
   }
-
-  var statsRoot = document.getElementById('hero-stats');
-  var statsFallback = document.getElementById('hero-stats-fallback');
-  if (!statsRoot) return;
-
-  var host = window.location.hostname;
-  var isLocal = host === 'localhost' || host === '127.0.0.1';
-  var apiBase = isLocal ? 'http://localhost:5148' : 'https://sysmile-api.onrender.com';
-
-  function formatInteger(value) {
-    return new Intl.NumberFormat('pt-BR').format(Math.round(value));
-  }
-
-  function easeOutCubic(t) {
-    return 1 - Math.pow(1 - t, 3);
-  }
-
-  function animateCounter(element, target, duration) {
-    return new Promise(function (resolve) {
-      if (prefersReducedMotion || target <= 0) {
-        element.textContent = formatInteger(target);
-        resolve();
-        return;
-      }
-
-      var start = performance.now();
-
-      function frame(now) {
-        var progress = Math.min((now - start) / duration, 1);
-        var current = Math.round(target * easeOutCubic(progress));
-        element.textContent = formatInteger(current);
-
-        if (progress < 1) {
-          requestAnimationFrame(frame);
-        } else {
-          element.textContent = formatInteger(target);
-          resolve();
-        }
-      }
-
-      requestAnimationFrame(frame);
-    });
-  }
-
-  function applyStats(data) {
-    var total =
-      (Number(data.establishments) || 0) +
-      (Number(data.ordersCompleted) || 0) +
-      (Number(data.itemsSold) || 0) +
-      (Number(data.shiftsCompleted) || 0);
-
-    if (total <= 0) return;
-
-    statsRoot.hidden = false;
-    if (statsFallback) statsFallback.classList.add('is-hidden');
-
-    var counterStats = [
-      { key: 'establishments', duration: 1400 },
-      { key: 'ordersCompleted', duration: 1800 },
-      { key: 'itemsSold', duration: 2000 },
-      { key: 'shiftsCompleted', duration: 1600 },
-    ];
-
-    var counterDelay = prefersReducedMotion ? 0 : 300;
-
-    window.setTimeout(function () {
-      counterStats.forEach(function (stat) {
-        var element = statsRoot.querySelector('[data-stat="' + stat.key + '"]');
-        if (!element) return;
-        animateCounter(element, Number(data[stat.key]) || 0, stat.duration);
-      });
-    }, counterDelay);
-  }
-
-  fetch(apiBase + '/public/stats', { method: 'GET' })
-    .then(function (response) {
-      if (!response.ok) throw new Error('stats unavailable');
-      return response.json();
-    })
-    .then(applyStats)
-    .catch(function () {
-      if (!isLocal) return;
-
-      applyStats({
-        establishments: 142,
-        ordersCompleted: 12847,
-        itemsSold: 89320,
-        shiftsCompleted: 384,
-      });
-    });
 })();

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="52" viewBox="0 0 320 52" fill="none" role="img" aria-label="Tempo médio: 15 min">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="52" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2B2625"/>
+      <stop offset="1" stop-color="#1F1B1A"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="318" height="50" rx="25" fill="url(#bg)" stroke="rgba(255,255,255,0.42)" stroke-width="1.5"/>
+  <g transform="translate(18, 14)" stroke="#FCC745" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="12" cy="13" r="9"/>
+    <path d="M12 8v5l3.5 2"/>
+    <path d="M9 3.5h6"/>
+    <path d="M12 3.5V2"/>
+  </g>
+  <text x="52" y="32" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="17" font-weight="500" fill="#FFFFFF" letter-spacing="-0.01em">Tempo médio:</text>
+  <text x="178" y="32" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="17" font-weight="700" fill="#FFFFFF" letter-spacing="-0.01em">15 min</text>
+</svg>
