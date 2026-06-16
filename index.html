@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/site.css?v=35" />
+  <link rel="stylesheet" href="css/site.css?v=36" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -77,6 +77,29 @@
           <div class="hero__actions">
             <a class="btn btn--dark btn--lg" href="https://sysmile-web.onrender.com/onboarding">Criar conta</a>
             <a class="btn btn--ghost btn--lg" href="#produto">Ver o sistema</a>
+          </div>
+          <div class="hero__stats" id="hero-stats" aria-label="Números do comandinha" hidden>
+            <div class="hero__stats-ticket">
+              <p class="hero__stats-kicker">por aí rodando</p>
+              <ul class="hero__stats-grid">
+                <li class="hero__stat">
+                  <span class="hero__stat-value" data-stat="establishments">0</span>
+                  <span class="hero__stat-label">estabelecimentos</span>
+                </li>
+                <li class="hero__stat">
+                  <span class="hero__stat-value" data-stat="ordersCompleted">0</span>
+                  <span class="hero__stat-label">comandas fechadas</span>
+                </li>
+                <li class="hero__stat">
+                  <span class="hero__stat-value" data-stat="itemsSold">0</span>
+                  <span class="hero__stat-label">itens registrados</span>
+                </li>
+                <li class="hero__stat">
+                  <span class="hero__stat-value" data-stat="shiftsCompleted">0</span>
+                  <span class="hero__stat-label">turnos de caixa</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <figure class="hero__device media-zoom" aria-label="Comandas no celular">
@@ -270,6 +293,6 @@
     </div>
   </footer>
 
-  <script src="js/site.js?v=12" defer></script>
+  <script src="js/site.js?v=13" defer></script>
 </body>
 </html>
