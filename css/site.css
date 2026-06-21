@@ -250,6 +250,27 @@ ul { list-style: none; }
   .hero__lead { margin-inline: 0; }
 }
 
+.pricing-note {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--cmd-text-muted);
+  max-width: 28rem;
+  margin-top: 0.75rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 900px) {
+  .pricing-note { margin-inline: 0; }
+}
+
+.hero .pricing-note {
+  margin-bottom: 0.25rem;
+}
+
+.onboarding__side .pricing-note {
+  margin-bottom: 1.25rem;
+}
+
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
