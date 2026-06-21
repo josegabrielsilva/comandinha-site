@@ -885,6 +885,34 @@ body.is-lightbox-open { overflow: hidden; }
 
 .site-footer__col ul { display: grid; gap: 0.5rem; }
 
+.site-footer__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.site-footer__social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.08);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.site-footer__social a:hover {
+  color: var(--cmd-white);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.site-footer__icon {
+  display: block;
+  flex-shrink: 0;
+}
+
 .site-footer__col a {
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.65);
@@ -912,6 +940,72 @@ body.is-lightbox-open { overflow: hidden; }
 }
 
 .site-footer__legal a:hover { color: var(--cmd-white); }
+
+.site-footer--legal {
+  background: transparent;
+  color: var(--cmd-text-muted);
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--cmd-border);
+}
+
+.site-footer--legal .site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.site-footer--legal .site-footer__brand {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.site-footer--legal .site-footer__brand p {
+  font-weight: 600;
+  font-size: 0.8125rem;
+}
+
+.site-footer--legal .site-footer__legal,
+.site-footer--legal .site-footer__contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.site-footer--legal .site-footer__contact {
+  margin-left: auto;
+}
+
+.site-footer--legal .site-footer__legal a {
+  color: var(--cmd-text-muted);
+  font-weight: 600;
+  font-size: 0.8125rem;
+}
+
+.site-footer--legal .site-footer__contact a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  color: var(--cmd-text-secondary);
+  background: var(--cmd-neutral-100);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.site-footer--legal .site-footer__contact a:hover {
+  color: var(--cmd-brand-dark);
+  background: var(--cmd-neutral-200);
+}
+
+.site-footer--legal .site-footer__legal a:hover {
+  color: var(--cmd-brand-dark);
+}
 
 /* ── Legal pages ── */
 
