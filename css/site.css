@@ -271,18 +271,6 @@ ul { list-style: none; }
   margin-bottom: 1.25rem;
 }
 
-.hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-}
-
-@media (min-width: 900px) {
-  .hero__actions { justify-content: flex-start; }
-}
-
 .hero__device {
   position: relative;
   margin: 0;
@@ -782,12 +770,6 @@ body.is-lightbox-open { overflow: hidden; }
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--cmd-text-primary);
-}
-
-.onboarding__note {
-  font-size: 0.875rem;
-  color: var(--cmd-text-muted);
-  margin-bottom: 1.25rem;
 }
 
 /* ── FAQ ── */
